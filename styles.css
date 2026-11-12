@@ -1,200 +1,156 @@
-/* =========================================================
-   Dorukhan Turhan — personal website
-   One stylesheet shared by every page (index, tr, projects/*).
-   No JavaScript: every effect below is pure CSS.
-   ========================================================= */
+/* Dorukhan Turhan - Kişisel web sitesi
+   Tek CSS dosyası; tüm sayfalar (index, tr, projects/*) bunu kullanır.
+   JavaScript yok: tüm efektler CSS ile yapıldı. */
 
-/* ---------- 1. Design tokens (CSS variables) ----------
-   Colours, fonts and sizes are defined once and reused with var(--name).
-   The page background stays in night-sky tones (navy and blue); coral is only
-   a small accent colour and cream is used for light cards. */
+/* ---------- 1. RENKLER VE YAZI TİPLERİ (değişkenler) ----------
+   Bir kez tanımlanır, her yerde var(--isim) ile kullanılır. */
 :root {
-  --night: #0b1130;
-  --night-soft: #1c2b6b;
-  --coral: #f2b78e;
-  --cream: #faf3ea;
-  --ink: #14141c;
-  --ink-soft: #4a4a57;
-  --accent: #2f5bff;
-  --white-70: rgba(255, 255, 255, 0.72);
-  --surface: #121a45;      /* cards and panels on the navy page */
-  --surface-2: #19235a;    /* hover / inner tiles */
-  --border: #27326c;       /* one border colour for everything */
-  --radius: 10px;
-  --max-width: 1120px;
-  --font-body: "Geist", "Inter", "Segoe UI", Arial, sans-serif;
-  --font-display: "Fraunces", Georgia, serif;
+    --night: #0b1130;
+    --night-soft: #1c2b6b;
+    --coral: #f2b78e;
+    --cream: #faf3ea;
+    --ink: #14141c;
+    --ink-soft: #4a4a57;
+    --accent: #2f5bff;
+    --white-70: rgba(255, 255, 255, 0.72);
+    --surface: #121a45;      /* kart ve panellerin zemini */
+    --surface-2: #19235a;    /* üzerine gelince / iç kutular */
+    --border: #27326c;       /* tüm kenarlıkların tek rengi */
+    --radius: 10px;
+    --max-width: 1120px;
+    --font-body: "Geist", "Inter", "Segoe UI", Arial, sans-serif;
+    --font-display: "Fraunces", Georgia, serif;
 }
 
-/* ---------- 2. Base styles ---------- */
+/* ---------- 2. GENEL ---------- */
 * {
-  box-sizing: border-box; /* width includes padding and border */
+    box-sizing: border-box; /* padding ve border genişliğe dahil */
 }
 
 html {
-  scroll-behavior: smooth;   /* menu links glide to their section */
-  scroll-padding-top: 96px;  /* keeps section titles below the floating menu */
+    scroll-behavior: smooth;   /* menüden tıklayınca yumuşak kayma */
+    scroll-padding-top: 96px;  /* başlıklar sabit menünün altında kalmasın */
 }
 
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--ink);
-  background: var(--night);
-}
-
-h1, h2, h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.15;
-  margin: 0 0 0.5em;
-  letter-spacing: -0.01em;
-}
-
+body { margin: 0; font-family: var(--font-body); font-size: 17px; line-height: 1.65; color: var(--ink); background: var(--night); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; margin: 0 0 0.5em; letter-spacing: -0.01em; }
 h2 { font-size: 2.6rem; }
 h3 { font-size: 1.3rem; }
 p { margin: 0 0 1em; }
 a { color: var(--accent); }
 
 img {
-  max-width: 100%;  /* images never overflow their container */
-  display: block;
+    max-width: 100%;  /* resimler kutusundan taşmasın */
+    display: block;
 }
 
-/* Lists used for layout (menu, chips, timeline …): no bullets, no indent */
+/* Düzen için kullanılan listeler: madde işareti ve girinti yok */
 .nav-links,
 .timeline,
 .chips,
 .marquee-track,
 .contact-list { list-style: none; margin: 0; padding: 0; }
 
-/* Centres content and limits line length on wide screens */
+/* İçeriği ortalayan, en fazla 1120px genişliğinde kutu */
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 
-/* ---------- 3. Floating "pill" navigation ----------
-   The header is fixed; the nav inside it is a rounded, frosted-glass bar.
-   backdrop-filter blurs whatever is scrolling behind it. */
-.site-header {
-  position: fixed;
-  top: 16px;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  padding: 0 16px;
-}
+/* ---------- 3. ÜST MENÜ ----------
+   Sabit (fixed) menü; yuvarlak buzlu cam kutu. backdrop-filter arkasını bulanıklaştırır. */
+.site-header { position: fixed; top: 16px; left: 0; right: 0; z-index: 20; padding: 0 16px; }
 
 .nav {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 8px 8px 14px;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 999px;
-  box-shadow: 0 10px 30px rgba(11, 17, 48, 0.18);
-  backdrop-filter: blur(16px) saturate(160%);
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 8px 8px 14px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(11, 17, 48, 0.18);
+    backdrop-filter: blur(16px) saturate(160%);
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--ink);
-  text-decoration: none;
-  white-space: nowrap;
-}
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; color: var(--ink); text-decoration: none; white-space: nowrap; }
 
-/* Logo: "DT" initials in a solid blue circle */
+/* Logo: mavi daire içinde DT */
 .brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
 }
 
 .nav-links { display: flex; align-items: center; gap: 2px; }
 
 .nav-links a {
-  display: block;
-  padding: 6px 12px;
-  border-radius: 999px;
-  color: var(--ink-soft);
-  text-decoration: none;
-  font-size: 0.92rem;
-  white-space: nowrap;
-  transition: background-color 0.2s, color 0.2s;
+    display: block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.92rem;
+    white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .nav-links a:hover { background: rgba(255, 255, 255, 0.75); color: var(--ink); }
 .nav-actions { display: flex; align-items: center; gap: 6px; }
 
-/* EN / TR switch: the current language is a highlighted <span>,
-   the other one is a normal link to the translated page */
-.lang-toggle {
-  display: flex;
-  padding: 3px;
-  border-radius: 999px;
-  background: rgba(20, 20, 28, 0.07);
-  font-size: 0.78rem;
-  font-weight: 600;
-}
+/* EN / TR: geçerli dil vurgulu <span>, diğeri çeviri sayfasına link */
+.lang-toggle { display: flex; padding: 3px; border-radius: 999px; background: rgba(20, 20, 28, 0.07); font-size: 0.78rem; font-weight: 600; }
 
 .lang-toggle span,
 .lang-toggle a { padding: 3px 9px; border-radius: 999px; color: var(--ink-soft); text-decoration: none; }
 .lang-toggle .active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); }
 
 .nav-cta {
-  padding: 8px 16px;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background-color 0.2s, box-shadow 0.2s;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .nav-cta:hover { background: #1f47e0; }
 
-/* Thin bar at the very top that fills as you scroll (see section 14) */
+/* En üstte, kaydırdıkça dolan ince çizgi (bkz. 16. bölüm) */
 #progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--accent);
-  transform-origin: left;
-  transform: scaleX(0);
-  z-index: 30;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: 30;
 }
 
-/* ---------- 4. Buttons ---------- */
+/* ---------- 4. BUTONLAR ---------- */
 .btn {
-  display: inline-block;
-  overflow: hidden; /* also sets how buttons line up with the text around them */
-  padding: 14px 26px;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s;
+    display: inline-block;
+    overflow: hidden; /* butonun yanındaki yazıyla hizasını da belirler */
+    padding: 14px 26px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s;
 }
 
 .btn:hover { transform: translateY(-3px); }
@@ -203,148 +159,113 @@ img {
 .btn-ghost { color: #fff; border: 1px solid var(--border); background: var(--surface); }
 .btn-dark { background: var(--night); color: #fff; }
 
-/* ---------- 5. Sections ----------
-   The whole page sits on one flat navy colour; a thin line separates
-   the sections instead of colour gradients. */
+/* ---------- 5. BÖLÜMLER ----------
+   Sayfa tek düz lacivert; bölümleri ince bir çizgi ayırır. */
 .section { position: relative; padding: 110px 0; border-top: 1px solid var(--border); }
 
 
-/* Sections on the dark part of the page use light text */
+/* Koyu zemindeki bölümlerde açık renk yazı */
 .on-dark { color: #fff; }
 .on-dark .section-intro { color: var(--white-70); }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
 }
 
-/* Small dot before every section label */
-.eyebrow::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: currentColor;
-}
-
+/* Bölüm etiketlerinin önündeki nokta */
+.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .on-dark .eyebrow { color: var(--coral); }
 .section-intro { max-width: 640px; color: var(--ink-soft); font-size: 1.08rem; margin-bottom: 48px; }
 
-/* ---------- 6. Hero (night sky) ---------- */
+/* ---------- 6. GİRİŞ (HERO) ---------- */
 .hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background: var(--night);
-  color: #fff;
-  text-align: center;
-  padding: 140px 0 100px;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--night);
+    color: #fff;
+    text-align: center;
+    padding: 140px 0 100px;
 }
 
-/* Two star layers made of tiny radial gradients repeated across the sky.
-   They fade in and out at different speeds, so the stars twinkle. */
+/* Yıldızlar: radial-gradient küçük noktalar çizer, desen tekrar eder.
+   İki katman farklı hızda soluklaşır, yıldızlar parıldar. */
 .stars,
 .stars::after {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
-    radial-gradient(1px 1px at 120px 80px, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 200px 160px, #dfe6ff, transparent),
-    radial-gradient(1px 1px at 60px 200px, #fff, transparent),
-    radial-gradient(1px 1px at 260px 40px, #fff, transparent);
-  background-size: 300px 260px;
-  animation: twinkle 5s ease-in-out infinite alternate;
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 120px 80px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 200px 160px, #dfe6ff, transparent),
+        radial-gradient(1px 1px at 60px 200px, #fff, transparent),
+        radial-gradient(1px 1px at 260px 40px, #fff, transparent);
+    background-size: 300px 260px;
+    animation: twinkle 5s ease-in-out infinite alternate;
 }
 
-.stars::after {
-  content: "";
-  background-size: 420px 380px;
-  background-position: 140px 90px;
-  animation-duration: 3.5s;
-  animation-delay: 1.5s;
-}
+.stars::after { content: ""; background-size: 420px 380px; background-position: 140px 90px; animation-duration: 3.5s; animation-delay: 1.5s; }
 
 .hero-content {
-  position: relative; /* sits above the stars and orbs */
-  max-width: 1040px;
+    position: relative; /* yıldızların üstünde durur */
+    max-width: 1040px;
 }
 
 .hero h1 { font-size: 4rem; font-weight: 500; margin: 28px 0 22px; }
 
-/* Headline text filled with a moving gradient instead of a flat colour */
+/* Başlıkta düz renk yerine kayan renk geçişi */
 .gradient-text {
-  background: linear-gradient(90deg, #fff 0%, #c7d2ff 30%, var(--coral) 55%, #fff 80%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 8s linear infinite;
+    background: linear-gradient(90deg, #fff 0%, #c7d2ff 30%, var(--coral) 55%, #fff 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 8s linear infinite;
 }
 
 .hero-sub { font-size: 1.2rem; color: var(--white-70); max-width: 640px; margin: 0 auto 36px; }
 .hero .btn { margin: 6px; }
 
-/* ---------- Personalisation by visitor type ----------
-   The visitor types are hidden radio buttons; the welcome screen's options
-   are their labels. CSS :has() lets any rule ask "is this radio checked
-   anywhere on the page?", for example body:has(#v-client:checked) — so one
-   click changes the headline, the buttons and the order of sections.
-   Elements with .v-default are shown until a visitor type is picked;
-   elements with .v-alt .v-client (etc.) are shown only for that type. */
-/* invisible controls: the visitor radios and the "show more" checkbox */
+/* ---------- 7. ZİYARETÇİYE GÖRE KİŞİSELLEŞTİRME ----------
+   Ziyaretçi türleri gizli radio butonları; karşılama ekranındaki seçenekler
+   bunların <label>'ı. :has() "bu radio işaretli mi?" diye sorar, örn.
+   body:has(#v-client:checked). .v-default seçimden önce, .v-alt .v-client
+   sadece o seçimde görünür. */
+/* görünmez kontroller: ziyaretçi radio'ları ve "show more" kutusu */
 .persona-radios,
 .more-toggle { position: absolute; opacity: 0; pointer-events: none; }
 
-/* "✓ Personalised for clients … · Change" under the buttons */
+/* Butonların altındaki "✓ ... · Değiştir" satırı */
 .persona-note { margin: 22px 0 0; font-size: 0.9rem; color: var(--white-70); }
-
-.persona-note label {
-  color: #c7d2ff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-
+.persona-note label { color: #c7d2ff; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .persona-note label:hover { color: #fff; }
 
-/* Alternative headline (same look as the typed h1) */
-.hero-title {
-  font-family: var(--font-display);
-  font-size: 4rem;
-  font-weight: 500;
-  line-height: 1.15;
-  margin: 28px 0 22px;
-  color: #fff;
-}
+/* Alternatif başlık (daktilo başlığıyla aynı görünüm) */
+.hero-title { font-family: var(--font-display); font-size: 4rem; font-weight: 500; line-height: 1.15; margin: 28px 0 22px; color: #fff; }
 
-/* ----- Switching content by visitor type ----- */
+/* --- Seçime göre içerik değişimi --- */
 .v-alt { display: none; }
 
-/* any visitor type picked → hide the default versions */
+/* bir tür seçildiyse varsayılan içerik gizlenir */
 body:has(.persona-radio:not(#v-all):checked) .v-default { display: none; }
 
-/* show the versions for the picked type; they rise in as they appear */
+/* seçilen türün içeriği görünür, aşağıdan süzülerek gelir */
 body:has(#v-recruiter:checked) .v-recruiter,
 body:has(#v-client:checked) .v-client,
-body:has(#v-student:checked) .v-student {
-  display: block;
-  animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
+body:has(#v-student:checked) .v-student { display: block; animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
-/* ----- Re-ordering the page -----
-   main is a flex column, so the CSS "order" property can move whole
-   sections up or down without touching the HTML. The
-   page is one flat colour, so sections can move in any order. */
+/* --- Bölüm sırasını değiştirme ---
+   main bir flex sütunu; "order" ile bölümler HTML'e dokunmadan yer değiştirir. */
 main { display: flex; flex-direction: column; background: var(--night); }
 body:has(.persona-radio:not(#v-all):checked) main > .hero    { order: -2; }
 body:has(.persona-radio:not(#v-all):checked) main > .marquee { order: -1; }
@@ -361,52 +282,47 @@ body:has(#v-student:checked) #projects  { order: 1; }
 body:has(#v-student:checked) #skills    { order: 2; }
 body:has(#v-student:checked) #education { order: 3; }
 
-/* "Picked for you" tag on the section labels that moved up.
-   The text comes from a variable so the Turkish page can translate it. */
+/* Öne alınan bölümlerdeki "Picked for you" etiketi.
+   Yazı değişkende, Türkçe sayfa kendi çevirisini kullanır. */
 :root { --picked: "Picked for you"; }
 :root:lang(tr) { --picked: "Sizin için seçildi"; }
 
 body:has(#v-recruiter:checked) :is(#about, #education) .eyebrow::after,
 body:has(#v-client:checked) :is(#projects, #testimonials, #assistant) .eyebrow::after,
 body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after {
-  content: var(--picked);
-  margin-left: 6px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
+    content: var(--picked);
+    margin-left: 6px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
 }
 
-/* ---------- Welcome screen ("Who's visiting?") ----------
-   It covers the page while the starting radio #v-all is still checked.
-   Its option buttons are <label>s for the radios in the hero, so a click
-   both personalises the page and closes the screen ("Just browsing"
-   checks #v-skip, which closes it without personalising).
-   :target is the element named in the URL after #, so a link such as
-   index.html#projects (used by the project pages and the TR/EN switch)
-   skips the welcome screen. */
+/* ---------- 8. KARŞILAMA EKRANI ("Who's visiting?") ----------
+   Başlangıç radio'su #v-all işaretliyken sayfanın üstünü kaplar. Seçenekler
+   hero'daki radio'ların <label>'ı: tıklayınca sayfa kişiselleşir, ekran kapanır.
+   :target = adresteki #bölüm; #projects gibi bir linkle gelinirse ekran atlanır. */
 .gate {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  overflow-y: auto;
-  background: var(--night);
-  color: #fff;
-  animation: type-in 0.4s both;
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+    background: var(--night);
+    color: #fff;
+    animation: type-in 0.4s both;
 }
 
 body:has(#v-all:checked):not(:has(:target)) .gate,
 body:has(#v-change:checked) .gate { display: flex; }
 
-/* while it is open the page behind it can't scroll, and the hero waits:
-   hidden elements don't animate, so the typing effect starts only when
-   the hero appears */
+/* açıkken sayfa kaymaz; hero gizli bekler (gizli öğe animasyon oynatmaz,
+   daktilo efekti hero görününce başlar) */
 body:has(#v-all:checked):not(:has(:target)),
 body:has(#v-change:checked) { overflow: hidden; }
 
@@ -414,173 +330,129 @@ body:has(#v-all:checked):not(:has(:target)) .hero-content,
 body:has(#v-change:checked) .hero-content { display: none; }
 
 .gate-box {
-  position: relative; /* above the stars */
-  width: 100%;
-  max-width: 780px;
-  text-align: center;
+    position: relative; /* yıldızların üstünde */
+    width: 100%;
+    max-width: 780px;
+    text-align: center;
 }
 
-.gate-brand {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 28px;
-  font-family: var(--font-display);
-  font-weight: 600;
-}
-
+.gate-brand { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 0 0 28px; font-family: var(--font-display); font-weight: 600; }
 .gate .eyebrow { color: var(--coral); }
 .gate h2 { font-size: 3rem; margin-bottom: 10px; }
 .gate-sub { color: var(--white-70); margin-bottom: 36px; }
 .gate-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
-/* each option rises in a little after the previous one (--n = 0, 1, 2) */
+/* seçenekler sırayla gelir (--n = 0, 1, 2) */
 .gate-option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 28px 18px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
-  animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--n) * 0.1s) both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 28px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
+    animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--n) * 0.1s) both;
 }
 
 .gate-option:hover { border-color: var(--accent); background: var(--surface-2); transform: translateY(-3px); }
 
 .gate-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  margin-bottom: 6px;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
 }
 
 .gate-icon svg { width: 22px; height: 22px; }
 .gate-option strong { font-family: var(--font-display); font-size: 1.25rem; }
 .gate-option span:last-child { font-size: 0.88rem; color: var(--white-70); }
-
-.gate-skip-link {
-  display: inline-block;
-  margin-top: 28px;
-  color: var(--white-70);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  cursor: pointer;
-}
-
+.gate-skip-link { display: inline-block; margin-top: 28px; color: var(--white-70); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
 .gate-skip-link:hover { color: #fff; }
 
 .gate-lang {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  padding: 6px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--white-70);
-  font-size: 0.9rem;
-  text-decoration: none;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--white-70);
+    font-size: 0.9rem;
+    text-decoration: none;
 }
 
 .gate-lang:hover { color: #fff; }
 
-/* Typing effect. Every letter is its own <span style="--i:N"> (its index).
-   Letter number i appears after  --start + i × --speed  seconds, so the text
-   is "typed" one letter at a time. While a letter is the newest one, a thin
-   caret line is drawn on its right (box-shadow), so the caret follows the text. */
+/* DAKTİLO EFEKTİ: her harf ayrı <span style="--i:N">. N. harf
+   --start + N × --speed saniye sonra görünür; en yeni harfin sağında
+   ince imleç çizgisi (box-shadow) olur, imleç yazıyı takip eder. */
 .typing-title { --start: 0.4s; --speed: 0.045s; }
 .typing-sub { --start: 2.9s; --speed: 0.012s; }
 
 .typing [style] {
-  animation-name: type-in, caret;
-  animation-duration: 0.01s, calc(var(--speed) * 2);
-  animation-fill-mode: both, none;
-  animation-timing-function: linear;
-  animation-delay: calc(var(--start) + var(--i) * var(--speed));
+    animation-name: type-in, caret;
+    animation-duration: 0.01s, calc(var(--speed) * 2);
+    animation-fill-mode: both, none;
+    animation-timing-function: linear;
+    animation-delay: calc(var(--start) + var(--i) * var(--speed));
 }
 
-/* Blinking caret that stays at the end of the subtitle once typing is done */
+/* Yazı bitince alt yazının sonunda yanıp sönen imleç */
 .typing-sub > span::after {
-  content: "";
-  display: inline-block;
-  width: 2px;
-  height: 1.1em;
-  margin-left: 4px;
-  vertical-align: -0.15em;
-  background: #c7d2ff;
-  opacity: 0; /* hidden until the typing has finished */
-  animation: blink 1s 4.7s step-end infinite;
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    margin-left: 4px;
+    vertical-align: -0.15em;
+    background: #c7d2ff;
+    opacity: 0; /* yazı bitene kadar gizli */
+    animation: blink 1s 4.7s step-end infinite;
 }
 
-/* Entrance animation: hero elements rise in one after another on page load */
+/* Açılış animasyonu: öğeler sırayla aşağıdan yukarı gelir */
 .fade-up { animation: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 .delay-1 { animation-delay: 0.15s; }
 
-/* The buttons and numbers rise in while the subtitle is being typed */
+/* Butonlar alt yazı yazılırken gelir */
 .after-typing   { animation-delay: 3.2s; }
 
-/* ---------- 7. About (paper card with a floated photo) ----------
-   The photo uses float: left; the text box uses display: flow-root so it
-   becomes its own column beside the photo instead of wrapping under it. */
+/* ---------- 9. HAKKIMDA ----------
+   FLOAT: fotoğraf sola yaslanır; yazı kutusu display: flow-root ile
+   fotoğrafın altına akmaz, yanında sütun olur. */
 .about-card {
-  display: flow-root;  /* contains the floated photo */
-  background: var(--cream);
-  border-radius: 12px;
-  padding: 48px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    display: flow-root;  /* float'lu fotoğrafı içine alır */
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 48px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.profile-photo {
-  float: left;
-  width: 300px;
-  margin: 0 48px 0 0;
-  border-radius: 10px;
-  box-shadow: 0 20px 40px rgba(11, 17, 48, 0.25);
-  transition: transform 0.4s;
-}
-
+.profile-photo { float: left; width: 300px; margin: 0 48px 0 0; border-radius: 10px; box-shadow: 0 20px 40px rgba(11, 17, 48, 0.25); transition: transform 0.4s; }
 .profile-photo:hover { transform: rotate(-1.5deg) scale(1.02); }
 .about-text { display: flow-root; }
 .about-text h2 { color: var(--night); }
 .role { font-size: 1.1rem; color: var(--accent); font-weight: 600; }
 .about-text .btn { margin: 8px 10px 0 0; }
 
-/* ---------- 8. Education and experience ----------
-   A simple two-column list, like a printed CV: the date sits in a narrow
-   left column, the details on the right, and thin lines separate entries. */
+/* ---------- 10. EĞİTİM VE DENEYİM ----------
+   Basılı CV gibi iki sütun: solda tarih, sağda detay, aralarda ince çizgi. */
 .timeline {
 }
 
-/* Each entry is a 2-column grid. Every child goes to column 2,
-   except the date, which takes column 1 next to all of them. */
-.timeline-item {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  column-gap: 40px;
-  padding: 30px 0;
-  border-top: 1px solid var(--border);
-}
-
+/* Her kayıt 2 sütunlu grid: tarih 1. sütunda, diğer her şey 2. sütunda */
+.timeline-item { display: grid; grid-template-columns: 200px 1fr; column-gap: 40px; padding: 30px 0; border-top: 1px solid var(--border); }
 .timeline-item:last-child { border-bottom: 1px solid var(--border); }
 .timeline-item > * { grid-column: 2; }
-
-.timeline-date {
-  grid-column: 1;
-  grid-row: 1 / span 4;
-  padding-top: 4px;
-  font-size: 0.9rem;
-  color: var(--white-70);
-}
-
+.timeline-date { grid-column: 1; grid-row: 1 / span 4; padding-top: 4px; font-size: 0.9rem; color: var(--white-70); }
 .timeline-item h3 { margin: 0 0 2px; }
 .org { color: #c7d2ff; font-weight: 600; margin-bottom: 8px; }
 
@@ -588,33 +460,25 @@ body:has(#v-change:checked) .hero-content { display: none; }
 .timeline-item li { color: rgba(255, 255, 255, 0.85); }
 .timeline-item ul { margin: 0; padding-left: 20px; }
 
-/* ---------- 9. Skills ---------- */
+/* ---------- 11. YETKİNLİKLER ---------- */
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 30px;
-  transition: transform 0.3s, background-color 0.3s;
-}
-
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; transition: transform 0.3s, background-color 0.3s; }
 .card:hover { transform: translateY(-6px); background: var(--surface-2); }
 
-/* Numbered badge (01, 02, 03) on each skill card */
+/* Kartlardaki numara (01, 02, 03) */
 .card-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  background: var(--accent);
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: var(--accent);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 18px;
 }
 
 .card p { color: rgba(255, 255, 255, 0.82); margin: 0; }
@@ -624,344 +488,248 @@ body:has(#v-change:checked) .hero-content { display: none; }
 .chips {
 }
 
-/* Each skill is a "chip"; float lines them up and lets them wrap */
+/* Her yetenek bir etiket; float ile yan yana dizilir, sığmayan alta geçer */
 .chips li {
-  float: left;
-  margin: 0 8px 8px 0;
-  padding: 5px 14px;
-  border-radius: 6px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: #fff;
-  font-size: 0.88rem;
-  transition: background-color 0.2s;
+    float: left;
+    margin: 0 8px 8px 0;
+    padding: 5px 14px;
+    border-radius: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: #fff;
+    font-size: 0.88rem;
+    transition: background-color 0.2s;
 }
 
 .chips li:hover { background: var(--surface-2); }
 
 .chips::after {
-  content: "";
-  display: block;
-  clear: both;  /* the list wraps around its floated chips */
+    content: "";
+    display: block;
+    clear: both;  /* liste float'lu etiketleri içine alır */
 }
 
-/* Endless scrolling strip of technologies. The list is written twice and
-   moved left by half its width, so the loop has no visible jump.
-   mask-image fades both edges so items glide in and out softly. */
+/* KAYAN ŞERİT: liste iki kez yazıldı, yarısı kadar sola kayar, döngü kesintisiz.
+   mask-image kenarları yumuşakça soldurur. */
 .marquee {
-  overflow: hidden;
-  padding: 26px 0;
-  background: var(--night);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    overflow: hidden;
+    padding: 26px 0;
+    background: var(--night);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
 .marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
 
-/* Each technology is a glass pill. margin-right (not gap) keeps both copies
-   of the list exactly the same width, so the -50% loop lines up perfectly. */
-.marquee-track li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-right: 48px;
-  color: rgba(255, 255, 255, 0.82);
-  font-weight: 500;
-  white-space: nowrap;
-}
+/* gap yerine margin-right: iki kopya tam aynı genişlikte olsun, döngü kaymasın */
+.marquee-track li { display: flex; align-items: center; gap: 10px; margin-right: 48px; color: rgba(255, 255, 255, 0.82); font-weight: 500; white-space: nowrap; }
 
-/* Small dot in front of every item */
-.marquee-track li::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #c7d2ff;
-}
-
+/* Her öğenin önündeki nokta */
+.marquee-track li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #c7d2ff; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 
-/* ---------- 10. Projects ---------- */
+/* ---------- 12. PROJELER ---------- */
 .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 
-/* "Show more" without JavaScript: only the first 3 cards are visible.
-   A hidden checkbox sits before the grid; its <label> is the button.
-   When the checkbox is checked, the ~ (sibling) selector shows every card. */
+/* SHOW MORE (JavaScript'siz): ilk 3 kart görünür. Grid'den önce gizli bir
+   checkbox var, <label>'ı buton. İşaretlenince ~ seçicisi tüm kartları gösterir. */
 .project-card:nth-child(n + 4) { display: none; }
 .more-toggle:checked ~ .project-grid .project-card { display: flex; }
 .more-wrap { margin-top: 40px; text-align: center; }
 .more-button { cursor: pointer; }
 
-/* The button text switches between "Show more" and "Show fewer" */
+/* Buton yazısı "Show more" / "Show fewer" arasında değişir */
 .less-label { display: none; }
 .more-toggle:checked ~ .more-wrap .more-label { display: none; }
 .more-toggle:checked ~ .more-wrap .less-label { display: inline; }
 
-/* Keyboard users see a ring on the button when the checkbox has focus */
+/* Klavyeyle gelen kullanıcı butonda halka görür */
 .more-toggle:focus-visible ~ .more-wrap .more-button { outline: 2px solid #fff; outline-offset: 3px; }
 
-/* With 3 or fewer projects there is nothing to expand, so the button hides */
+/* 3 veya daha az proje varsa buton gizlenir */
 .project-grid:not(:has(.project-card:nth-child(4))) ~ .more-wrap { display: none; }
 
 .project-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--cream);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 12px 30px rgba(11, 17, 48, 0.14);
-  transition: transform 0.35s, box-shadow 0.35s;
+    display: flex;
+    flex-direction: column;
+    background: var(--cream);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(11, 17, 48, 0.14);
+    transition: transform 0.35s, box-shadow 0.35s;
 }
 
 .project-card:hover { transform: translateY(-8px); box-shadow: 0 26px 50px rgba(11, 17, 48, 0.25); }
 
 .project-image {
-  overflow: hidden; /* hides the zoomed part of the image */
+    overflow: hidden; /* yakınlaşan resmin taşan kısmını gizler */
 }
 
 .project-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;  /* crop to fill the box without stretching */
-  transition: transform 0.6s;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;  /* resmi bozmadan kutuyu doldurur */
+    transition: transform 0.6s;
 }
 
 .project-card:hover img { transform: scale(1.06); }
 .project-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
 .project-body p { color: var(--ink-soft); font-size: 0.95rem; }
-
-.category {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 6px;
-}
-
+.category { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
 .tags { list-style: none; padding: 0; margin: 0 0 18px; }
-
-.tags li {
-  display: inline-block;
-  font-size: 0.78rem;
-  color: var(--night-soft);
-  background: rgba(58, 85, 201, 0.1);
-  border-radius: 6px;
-  padding: 3px 10px;
-  margin: 0 4px 6px 0;
-}
+.tags li { display: inline-block; font-size: 0.78rem; color: var(--night-soft); background: rgba(58, 85, 201, 0.1); border-radius: 6px; padding: 3px 10px; margin: 0 4px 6px 0; }
 
 .read-more {
-  margin-top: auto;  /* pushes the link to the bottom of the card */
-  font-weight: 600;
-  text-decoration: none;
+    margin-top: auto;  /* linki kartın en altına iter */
+    font-weight: 600;
+    text-decoration: none;
 }
 
-/* The arrow slides right when the card is hovered */
+/* Kartın üzerine gelince ok sağa kayar */
 .read-more span { display: inline-block; transition: transform 0.3s; }
 .project-card:hover .read-more span { transform: translateX(6px); }
 
-/* ---------- 11. Testimonials (glass cards on the dark background) ---------- */
+/* ---------- 13. REFERANSLAR ---------- */
 .quote {
-  position: relative;
-  margin: 0;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: transform 0.3s, border-color 0.3s;
 }
 
 .quote:hover { transform: translateY(-6px); border-color: var(--accent); }
 .stars-rating { color: #e2a400; letter-spacing: 3px; margin-bottom: 10px; }
-
-.quote blockquote {
-  margin: 0 0 18px;
-  font-family: var(--font-display);
-  font-size: 1.08rem;
-  font-style: italic;
-}
-
+.quote blockquote { margin: 0 0 18px; font-family: var(--font-display); font-size: 1.08rem; font-style: italic; }
 .quote figcaption { font-size: 0.86rem; color: var(--white-70); }
 
-/* ---------- 12. AI assistant, CV and contact ---------- */
+/* ---------- 14. AI ASİSTAN, CV VE İLETİŞİM ---------- */
 .assistant-layout { display: grid; grid-template-columns: 1fr 410px; gap: 56px; align-items: center; }
-
-.assistant-frame {
-  width: 100%;
-  height: 560px;
-  border: 0;
-  border-radius: 12px;
-  background: var(--night);
-  box-shadow: 0 0 0 1px var(--border);
-}
-
-.cv-box {
-  background: var(--surface);
-  color: #fff;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 64px 48px;
-  text-align: center;
-}
-
+.assistant-frame { width: 100%; height: 560px; border: 0; border-radius: 12px; background: var(--night); box-shadow: 0 0 0 1px var(--border); }
+.cv-box { background: var(--surface); color: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 64px 48px; text-align: center; }
 .cv-box p { color: var(--white-70); margin-bottom: 28px; }
 .cv-box .btn { margin: 6px; }
 
-/* Contact: a dark night-sky panel with the heading on the left and
-   four glass link cards on the right */
+/* İletişim: solda başlık, sağda dört link kartı */
 .contact-panel {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 48px;
-  align-items: center;
-  padding: 64px 56px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 48px;
+    align-items: center;
+    padding: 64px 56px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
 }
 
 .contact-intro,
 .contact-list {
-  position: relative; /* above the stars */
-  z-index: 1;
+    position: relative; /* yıldızların üstünde */
+    z-index: 1;
 }
 
 .contact-intro .section-intro { margin-bottom: 0; }
 .contact-list { display: grid; gap: 14px; }
 
 .contact-link {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
-  border-radius: 8px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: #fff;
-  text-decoration: none;
-  transition: transform 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
-.contact-link:hover {
-  transform: translateX(8px);
-  background: var(--surface-2);
-  border-color: rgba(199, 210, 255, 0.5);
-}
+.contact-link:hover { transform: translateX(8px); background: var(--surface-2); border-color: rgba(199, 210, 255, 0.5); }
 
-/* Thin glass ring holding a line icon; it fills with blue when the card
-   is hovered, so the icon reacts together with the rest of the card */
+/* İkon halkası; kartın üzerine gelince maviyle dolar */
 .contact-icon {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  border: 1px solid rgba(199, 210, 255, 0.35);
-  background: var(--surface-2);
-  color: #c7d2ff;
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid rgba(199, 210, 255, 0.35);
+    background: var(--surface-2);
+    color: #c7d2ff;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 .contact-icon svg { width: 20px; height: 20px; }
 .contact-link:hover .contact-icon { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 .contact-text {
-  flex: 1;
-  min-width: 0; /* lets long text (the email) wrap inside the flex row */
+    flex: 1;
+    min-width: 0; /* uzun e-posta satırın içinde alta geçebilsin */
 }
 
-.contact-text strong {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
+.contact-text strong { display: block; font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; }
 .contact-text span { font-size: 0.9rem; color: var(--white-70); overflow-wrap: anywhere; }
 .contact-arrow { font-size: 1.2rem; color: var(--white-70); transition: transform 0.3s, color 0.3s; }
 .contact-link:hover .contact-arrow { color: #fff; transform: translate(3px, -3px); }
 
-/* Round chat button fixed to the corner; it links to #assistant */
+/* Sağ altta sabit sohbet butonu; #assistant'a gider */
 .chat-fab {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 20;
-  display: inline-flex;
-  align-items: center;
-  padding: 12px 20px 12px 12px;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  transition: background-color 0.2s;
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 20px 12px 12px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    transition: background-color 0.2s;
 }
 
 .chat-fab:hover { background: #1f47e0; }
 
-/* Tiny terminal prompt ">_" inside the chat button; the underscore blinks
-   like the caret at the end of the hero subtitle */
+/* Butondaki küçük terminal ">_"; alt çizgi yanıp söner */
 .fab-prompt {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 24px;
-  margin-right: 10px;
-  border-radius: 5px;
-  background: rgba(11, 17, 48, 0.45);
-  font-family: Consolas, "Cascadia Code", monospace;
-  font-size: 0.82rem;
-  font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 5px;
+    background: rgba(11, 17, 48, 0.45);
+    font-family: Consolas, "Cascadia Code", monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
 }
 
 .fab-prompt span { animation: blink 1s step-end infinite; }
-
-.site-footer {
-  background: var(--night);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--white-70);
-  padding: 32px 0;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
+.site-footer { background: var(--night); border-top: 1px solid rgba(255, 255, 255, 0.08); color: var(--white-70); padding: 32px 0; font-size: 0.9rem; text-align: center; }
 .site-footer p { margin: 0; }
 
-/* ---------- 13. Project detail pages ---------- */
+/* ---------- 15. PROJE DETAY SAYFALARI ---------- */
 .project-page-body { background: var(--cream); }
 
-/* Dark title band at the top of every project page */
-.project-hero {
-  position: relative;
-  overflow: hidden;
-  background: var(--night);
-  color: #fff;
-  padding: 130px 0 56px;
-}
+/* Her proje sayfasının üstündeki koyu başlık alanı */
+.project-hero { position: relative; overflow: hidden; background: var(--night); color: #fff; padding: 130px 0 56px; }
 
 .project-hero .container {
-  position: relative; /* above the stars */
-  max-width: 860px;
+    position: relative; /* yıldızların üstünde */
+    max-width: 860px;
 }
 
 .project-page { max-width: 860px; padding-top: 8px; padding-bottom: 90px; }
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 20px;
-  color: var(--coral);
-  text-decoration: none;
-  font-weight: 600;
-}
-
+.back-link { display: inline-block; margin-bottom: 20px; color: var(--coral); text-decoration: none; font-weight: 600; }
 .project-hero h1 { font-size: 2.8rem; }
 .project-hero .tags li { color: #fff; background: rgba(255, 255, 255, 0.14); }
 .project-hero .role { color: var(--coral); }
@@ -972,113 +740,112 @@ body:has(#v-change:checked) .hero-content { display: none; }
 .project-page li { margin-bottom: 8px; }
 .project-page .back-link.bottom { color: var(--accent); }
 
-/* ---------- 14. Keyframes and scroll-driven animations ---------- */
+/* ---------- 16. ANİMASYONLAR ---------- */
 @keyframes twinkle {
-  from { opacity: 0.35; }
-  to   { opacity: 1; }
+    from { opacity: 0.35; }
+    to   { opacity: 1; }
 }
 
 @keyframes shimmer {
-  to { background-position: 200% center; }
+    to { background-position: 200% center; }
 }
 
 @keyframes type-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 @keyframes caret {
-  from, to { box-shadow: 3px 0 0 #c7d2ff; }
+    from, to { box-shadow: 3px 0 0 #c7d2ff; }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0; }
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes marquee {
-  to { transform: translateX(-50%); }
+    to { transform: translateX(-50%); }
 }
 
 @keyframes grow-progress {
-  to { transform: scaleX(1); }
+    to { transform: scaleX(1); }
 }
 
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(50px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+    from { opacity: 0; transform: translateY(50px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* animation-timeline ties an animation to scrolling instead of time.
-   @supports applies it only in browsers that understand it; the others
-   simply show everything without the effect. */
+/* animation-timeline: animasyon zamana değil kaydırmaya bağlanır.
+   @supports: destekleyen tarayıcıda çalışır, diğerlerinde sayfa efektsiz görünür. */
 @supports (animation-timeline: view()) {
-  #progress { animation: grow-progress linear both; animation-timeline: scroll(root); }
-  .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+    #progress { animation: grow-progress linear both; animation-timeline: scroll(root); }
+    .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
 }
 
-/* Visitors who ask their system for less motion get a still page */
+/* "Hareketi azalt" ayarı açık olanlara hareketsiz sayfa */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after { animation: none !important; transition: none !important; }
-  #progress { display: none; }
+    *,
+    *::before,
+    *::after { animation: none !important; transition: none !important; }
+    #progress { display: none; }
 }
 
-/* ---------- 15. Responsive design (tablets and phones) ---------- */
+/* ---------- 17. MOBİL UYUM (tablet ve telefon) ---------- */
 @media (max-width: 980px) {
-  .nav-links { display: none; } /* the pill keeps logo, language and contact */
+    .nav-links { display: none; } /* menüde logo, dil ve iletişim kalır */
 
-  .card-grid,
-  .project-grid { grid-template-columns: repeat(2, 1fr); }
+    .card-grid,
+    .project-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .assistant-layout,
-  .contact-panel { grid-template-columns: 1fr; }
+    .assistant-layout,
+    .contact-panel { grid-template-columns: 1fr; }
 
-  .hero h1,
-  .hero-title { font-size: 3.4rem; }
+    .hero h1,
+    .hero-title { font-size: 3.4rem; }
 }
 
 @media (max-width: 640px) {
-  body { font-size: 16px; }
-  h2 { font-size: 2rem; }
-  .section { padding: 80px 0; }
-  .site-header { top: 10px; }
-  .nav { padding: 6px 6px 6px 10px; }
-  .nav-cta { padding: 7px 12px; }
-  .hero { padding: 120px 0 80px; }
-  .hero h1,
-  .hero-title { font-size: 2.5rem; }
+    body { font-size: 16px; }
+    h2 { font-size: 2rem; }
+    .section { padding: 80px 0; }
+    .site-header { top: 10px; }
+    .nav { padding: 6px 6px 6px 10px; }
+    .nav-cta { padding: 7px 12px; }
+    .hero { padding: 120px 0 80px; }
+    .hero h1,
+    .hero-title { font-size: 2.5rem; }
 
-  /* welcome screen: options stacked, smaller title */
-  .gate { align-items: flex-start; padding-top: 70px; }
-  .gate h2 { font-size: 2.2rem; }
-  .gate-options { grid-template-columns: 1fr; }
-  .gate-option { padding: 18px; }
+    /* karşılama ekranı: seçenekler alt alta */
+    .gate { align-items: flex-start; padding-top: 70px; }
+    .gate h2 { font-size: 2.2rem; }
+    .gate-options { grid-template-columns: 1fr; }
+    .gate-option { padding: 18px; }
 
 
-  .about-card { padding: 24px; }
+    .about-card { padding: 24px; }
 
-  /* The photo stops floating and sits above the text */
-  .profile-photo { float: none; width: 100%; max-width: 280px; margin: 0 0 24px; }
+    /* fotoğraf float olmaz, yazının üstüne geçer */
+    .profile-photo { float: none; width: 100%; max-width: 280px; margin: 0 0 24px; }
 
-  /* education list: the date moves above the title */
-  .timeline-item { grid-template-columns: 1fr; padding: 24px 0; }
-  .timeline-date { grid-column: 1; grid-row: auto; padding-top: 0; }
-  .timeline-item > * { grid-column: 1; }
+    /* eğitim listesi: tarih başlığın üstüne geçer */
+    .timeline-item { grid-template-columns: 1fr; padding: 24px 0; }
+    .timeline-date { grid-column: 1; grid-row: auto; padding-top: 0; }
+    .timeline-item > * { grid-column: 1; }
 
-  .card-grid,
-  .skill-groups { grid-template-columns: 1fr; }
-  .contact-panel { padding: 40px 20px; gap: 28px; }
-  .contact-link { padding: 14px 16px; }
-  .project-grid { grid-template-columns: 1fr; }
-  .cv-box { padding: 44px 22px; }
-  .assistant-frame { height: 500px; }
-  .chat-fab { right: 14px; bottom: 14px; padding: 9px 16px 9px 9px; font-size: 0.9rem; }
-  .project-hero h1 { font-size: 2rem; }
+    .card-grid,
+    .skill-groups { grid-template-columns: 1fr; }
+    .contact-panel { padding: 40px 20px; gap: 28px; }
+    .contact-link { padding: 14px 16px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .cv-box { padding: 44px 22px; }
+    .assistant-frame { height: 500px; }
+    .chat-fab { right: 14px; bottom: 14px; padding: 9px 16px 9px 9px; font-size: 0.9rem; }
+    .project-hero h1 { font-size: 2rem; }
 }
