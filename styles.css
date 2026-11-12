@@ -55,9 +55,7 @@ h1, h2, h3 {
 
 h2 { font-size: 2.6rem; }
 h3 { font-size: 1.3rem; }
-
 p { margin: 0 0 1em; }
-
 a { color: var(--accent); }
 
 img {
@@ -65,12 +63,15 @@ img {
   display: block;
 }
 
+/* Lists used for layout (menu, chips, timeline …): no bullets, no indent */
+.nav-links,
+.timeline,
+.chips,
+.marquee-track,
+.contact-list { list-style: none; margin: 0; padding: 0; }
+
 /* Centres content and limits line length on wide screens */
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 24px;
-}
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 
 /* ---------- 3. Floating "pill" navigation ----------
    The header is fixed; the nav inside it is a rounded, frosted-glass bar.
@@ -127,14 +128,7 @@ img {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
 }
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+.nav-links { display: flex; align-items: center; gap: 2px; }
 
 .nav-links a {
   display: block;
@@ -147,16 +141,8 @@ img {
   transition: background-color 0.2s, color 0.2s;
 }
 
-.nav-links a:hover {
-  background: rgba(255, 255, 255, 0.75);
-  color: var(--ink);
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.nav-links a:hover { background: rgba(255, 255, 255, 0.75); color: var(--ink); }
+.nav-actions { display: flex; align-items: center; gap: 6px; }
 
 /* EN / TR switch: the current language is a highlighted <span>,
    the other one is a normal link to the translated page */
@@ -170,18 +156,8 @@ img {
 }
 
 .lang-toggle span,
-.lang-toggle a {
-  padding: 3px 9px;
-  border-radius: 999px;
-  color: var(--ink-soft);
-  text-decoration: none;
-}
-
-.lang-toggle .active {
-  background: #fff;
-  color: var(--ink);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-}
+.lang-toggle a { padding: 3px 9px; border-radius: 999px; color: var(--ink-soft); text-decoration: none; }
+.lang-toggle .active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); }
 
 .nav-cta {
   padding: 8px 16px;
@@ -222,42 +198,19 @@ img {
 }
 
 .btn:hover { transform: translateY(-3px); }
-
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-.btn-primary:hover {
-  background: #1f47e0;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
-}
-
-.btn-ghost {
-  color: #fff;
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.btn-dark {
-  background: var(--night);
-  color: #fff;
-}
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); }
+.btn-primary:hover { background: #1f47e0; box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35); }
+.btn-ghost { color: #fff; border: 1px solid var(--border); background: var(--surface); }
+.btn-dark { background: var(--night); color: #fff; }
 
 /* ---------- 5. Sections ----------
    The whole page sits on one flat navy colour; a thin line separates
    the sections instead of colour gradients. */
-.section {
-  position: relative;
-  padding: 110px 0;
-  border-top: 1px solid var(--border);
-}
+.section { position: relative; padding: 110px 0; border-top: 1px solid var(--border); }
 
 
 /* Sections on the dark part of the page use light text */
 .on-dark { color: #fff; }
-
 .on-dark .section-intro { color: var(--white-70); }
 
 .eyebrow {
@@ -282,13 +235,7 @@ img {
 }
 
 .on-dark .eyebrow { color: var(--coral); }
-
-.section-intro {
-  max-width: 640px;
-  color: var(--ink-soft);
-  font-size: 1.08rem;
-  margin-bottom: 48px;
-}
+.section-intro { max-width: 640px; color: var(--ink-soft); font-size: 1.08rem; margin-bottom: 48px; }
 
 /* ---------- 6. Hero (night sky) ---------- */
 .hero {
@@ -332,11 +279,7 @@ img {
   max-width: 1040px;
 }
 
-.hero h1 {
-  font-size: 4rem;
-  font-weight: 500;
-  margin: 28px 0 22px;
-}
+.hero h1 { font-size: 4rem; font-weight: 500; margin: 28px 0 22px; }
 
 /* Headline text filled with a moving gradient instead of a flat colour */
 .gradient-text {
@@ -348,13 +291,7 @@ img {
   animation: shimmer 8s linear infinite;
 }
 
-.hero-sub {
-  font-size: 1.2rem;
-  color: var(--white-70);
-  max-width: 640px;
-  margin: 0 auto 36px;
-}
-
+.hero-sub { font-size: 1.2rem; color: var(--white-70); max-width: 640px; margin: 0 auto 36px; }
 .hero .btn { margin: 6px; }
 
 /* ---------- Personalisation by visitor type ----------
@@ -366,18 +303,10 @@ img {
    elements with .v-alt .v-client (etc.) are shown only for that type. */
 /* invisible controls: the visitor radios and the "show more" checkbox */
 .persona-radios,
-.more-toggle {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
+.more-toggle { position: absolute; opacity: 0; pointer-events: none; }
 
 /* "✓ Personalised for clients … · Change" under the buttons */
-.persona-note {
-  margin: 22px 0 0;
-  font-size: 0.9rem;
-  color: var(--white-70);
-}
+.persona-note { margin: 22px 0 0; font-size: 0.9rem; color: var(--white-70); }
 
 .persona-note label {
   color: #c7d2ff;
@@ -416,26 +345,18 @@ body:has(#v-student:checked) .v-student {
    main is a flex column, so the CSS "order" property can move whole
    sections up or down without touching the HTML. The
    page is one flat colour, so sections can move in any order. */
-main {
-  display: flex;
-  flex-direction: column;
-  background: var(--night);
-}
-
+main { display: flex; flex-direction: column; background: var(--night); }
 body:has(.persona-radio:not(#v-all):checked) main > .hero    { order: -2; }
 body:has(.persona-radio:not(#v-all):checked) main > .marquee { order: -1; }
 body:has(.persona-radio:not(#v-all):checked) main > .section { order: 10; }
 body:has(.persona-radio:not(#v-all):checked) main > #cv      { order: 15; }
 body:has(.persona-radio:not(#v-all):checked) main > #contact { order: 20; }
-
 body:has(#v-recruiter:checked) #about     { order: 1; }
 body:has(#v-recruiter:checked) #education { order: 2; }
 body:has(#v-recruiter:checked) #cv        { order: 3; }
-
 body:has(#v-client:checked) #projects     { order: 1; }
 body:has(#v-client:checked) #testimonials { order: 2; }
 body:has(#v-client:checked) #assistant    { order: 3; }
-
 body:has(#v-student:checked) #projects  { order: 1; }
 body:has(#v-student:checked) #skills    { order: 2; }
 body:has(#v-student:checked) #education { order: 3; }
@@ -443,7 +364,6 @@ body:has(#v-student:checked) #education { order: 3; }
 /* "Picked for you" tag on the section labels that moved up.
    The text comes from a variable so the Turkish page can translate it. */
 :root { --picked: "Picked for you"; }
-
 :root:lang(tr) { --picked: "Sizin için seçildi"; }
 
 body:has(#v-recruiter:checked) :is(#about, #education) .eyebrow::after,
@@ -511,22 +431,9 @@ body:has(#v-change:checked) .hero-content { display: none; }
 }
 
 .gate .eyebrow { color: var(--coral); }
-
-.gate h2 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.gate-sub {
-  color: var(--white-70);
-  margin-bottom: 36px;
-}
-
-.gate-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
+.gate h2 { font-size: 3rem; margin-bottom: 10px; }
+.gate-sub { color: var(--white-70); margin-bottom: 36px; }
+.gate-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
 /* each option rises in a little after the previous one (--n = 0, 1, 2) */
 .gate-option {
@@ -543,11 +450,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
   animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--n) * 0.1s) both;
 }
 
-.gate-option:hover {
-  border-color: var(--accent);
-  background: var(--surface-2);
-  transform: translateY(-3px);
-}
+.gate-option:hover { border-color: var(--accent); background: var(--surface-2); transform: translateY(-3px); }
 
 .gate-icon {
   display: flex;
@@ -561,20 +464,9 @@ body:has(#v-change:checked) .hero-content { display: none; }
   color: #fff;
 }
 
-.gate-icon svg {
-  width: 22px;
-  height: 22px;
-}
-
-.gate-option strong {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-}
-
-.gate-option span:last-child {
-  font-size: 0.88rem;
-  color: var(--white-70);
-}
+.gate-icon svg { width: 22px; height: 22px; }
+.gate-option strong { font-family: var(--font-display); font-size: 1.25rem; }
+.gate-option span:last-child { font-size: 0.88rem; color: var(--white-70); }
 
 .gate-skip-link {
   display: inline-block;
@@ -605,15 +497,8 @@ body:has(#v-change:checked) .hero-content { display: none; }
    Letter number i appears after  --start + i × --speed  seconds, so the text
    is "typed" one letter at a time. While a letter is the newest one, a thin
    caret line is drawn on its right (box-shadow), so the caret follows the text. */
-.typing-title {
-  --start: 0.4s;
-  --speed: 0.045s;
-}
-
-.typing-sub {
-  --start: 2.9s;
-  --speed: 0.012s;
-}
+.typing-title { --start: 0.4s; --speed: 0.045s; }
+.typing-sub { --start: 2.9s; --speed: 0.012s; }
 
 .typing [style] {
   animation-name: type-in, caret;
@@ -638,7 +523,6 @@ body:has(#v-change:checked) .hero-content { display: none; }
 
 /* Entrance animation: hero elements rise in one after another on page load */
 .fade-up { animation: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-
 .delay-1 { animation-delay: 0.15s; }
 
 /* The buttons and numbers rise in while the subtitle is being typed */
@@ -665,26 +549,15 @@ body:has(#v-change:checked) .hero-content { display: none; }
 }
 
 .profile-photo:hover { transform: rotate(-1.5deg) scale(1.02); }
-
 .about-text { display: flow-root; }
-
 .about-text h2 { color: var(--night); }
-
-.role {
-  font-size: 1.1rem;
-  color: var(--accent);
-  font-weight: 600;
-}
-
+.role { font-size: 1.1rem; color: var(--accent); font-weight: 600; }
 .about-text .btn { margin: 8px 10px 0 0; }
 
 /* ---------- 8. Education and experience ----------
    A simple two-column list, like a printed CV: the date sits in a narrow
    left column, the details on the right, and thin lines separate entries. */
 .timeline {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 /* Each entry is a 2-column grid. Every child goes to column 2,
@@ -698,7 +571,6 @@ body:has(#v-change:checked) .hero-content { display: none; }
 }
 
 .timeline-item:last-child { border-bottom: 1px solid var(--border); }
-
 .timeline-item > * { grid-column: 2; }
 
 .timeline-date {
@@ -710,27 +582,14 @@ body:has(#v-change:checked) .hero-content { display: none; }
 }
 
 .timeline-item h3 { margin: 0 0 2px; }
-
-.org {
-  color: #c7d2ff;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
+.org { color: #c7d2ff; font-weight: 600; margin-bottom: 8px; }
 
 .timeline-item p,
 .timeline-item li { color: rgba(255, 255, 255, 0.85); }
-
-.timeline-item ul {
-  margin: 0;
-  padding-left: 20px;
-}
+.timeline-item ul { margin: 0; padding-left: 20px; }
 
 /* ---------- 9. Skills ---------- */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
 .card {
   background: var(--surface);
@@ -740,10 +599,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
   transition: transform 0.3s, background-color 0.3s;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  background: var(--surface-2);
-}
+.card:hover { transform: translateY(-6px); background: var(--surface-2); }
 
 /* Numbered badge (01, 02, 03) on each skill card */
 .card-icon {
@@ -761,29 +617,11 @@ body:has(#v-change:checked) .hero-content { display: none; }
   margin-bottom: 18px;
 }
 
-.card p {
-  color: rgba(255, 255, 255, 0.82);
-  margin: 0;
-}
-
-.skill-groups {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px 48px;
-}
-
-.skill-groups h3 {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-}
+.card p { color: rgba(255, 255, 255, 0.82); margin: 0; }
+.skill-groups { margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 48px; }
+.skill-groups h3 { font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: #fff; }
 
 .chips {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 /* Each skill is a "chip"; float lines them up and lets them wrap */
@@ -818,14 +656,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
-.marquee-track {
-  display: flex;
-  width: max-content;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  animation: marquee 40s linear infinite;
-}
+.marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
 
 /* Each technology is a glass pill. margin-right (not gap) keeps both copies
    of the list exactly the same width, so the -50% loop lines up perfectly. */
@@ -851,38 +682,23 @@ body:has(#v-change:checked) .hero-content { display: none; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 
 /* ---------- 10. Projects ---------- */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
+.project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 
 /* "Show more" without JavaScript: only the first 3 cards are visible.
    A hidden checkbox sits before the grid; its <label> is the button.
    When the checkbox is checked, the ~ (sibling) selector shows every card. */
 .project-card:nth-child(n + 4) { display: none; }
-
 .more-toggle:checked ~ .project-grid .project-card { display: flex; }
-
-.more-wrap {
-  margin-top: 40px;
-  text-align: center;
-}
-
+.more-wrap { margin-top: 40px; text-align: center; }
 .more-button { cursor: pointer; }
 
 /* The button text switches between "Show more" and "Show fewer" */
 .less-label { display: none; }
-
 .more-toggle:checked ~ .more-wrap .more-label { display: none; }
-
 .more-toggle:checked ~ .more-wrap .less-label { display: inline; }
 
 /* Keyboard users see a ring on the button when the checkbox has focus */
-.more-toggle:focus-visible ~ .more-wrap .more-button {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
+.more-toggle:focus-visible ~ .more-wrap .more-button { outline: 2px solid #fff; outline-offset: 3px; }
 
 /* With 3 or fewer projects there is nothing to expand, so the button hides */
 .project-grid:not(:has(.project-card:nth-child(4))) ~ .more-wrap { display: none; }
@@ -897,10 +713,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
   transition: transform 0.35s, box-shadow 0.35s;
 }
 
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 26px 50px rgba(11, 17, 48, 0.25);
-}
+.project-card:hover { transform: translateY(-8px); box-shadow: 0 26px 50px rgba(11, 17, 48, 0.25); }
 
 .project-image {
   overflow: hidden; /* hides the zoomed part of the image */
@@ -914,18 +727,8 @@ body:has(#v-change:checked) .hero-content { display: none; }
 }
 
 .project-card:hover img { transform: scale(1.06); }
-
-.project-body {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.project-body p {
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-}
+.project-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+.project-body p { color: var(--ink-soft); font-size: 0.95rem; }
 
 .category {
   font-size: 0.75rem;
@@ -936,11 +739,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
   margin-bottom: 6px;
 }
 
-.tags {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 18px;
-}
+.tags { list-style: none; padding: 0; margin: 0 0 18px; }
 
 .tags li {
   display: inline-block;
@@ -959,11 +758,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
 }
 
 /* The arrow slides right when the card is hovered */
-.read-more span {
-  display: inline-block;
-  transition: transform 0.3s;
-}
-
+.read-more span { display: inline-block; transition: transform 0.3s; }
 .project-card:hover .read-more span { transform: translateX(6px); }
 
 /* ---------- 11. Testimonials (glass cards on the dark background) ---------- */
@@ -977,16 +772,8 @@ body:has(#v-change:checked) .hero-content { display: none; }
   transition: transform 0.3s, border-color 0.3s;
 }
 
-.quote:hover {
-  transform: translateY(-6px);
-  border-color: var(--accent);
-}
-
-.stars-rating {
-  color: #e2a400;
-  letter-spacing: 3px;
-  margin-bottom: 10px;
-}
+.quote:hover { transform: translateY(-6px); border-color: var(--accent); }
+.stars-rating { color: #e2a400; letter-spacing: 3px; margin-bottom: 10px; }
 
 .quote blockquote {
   margin: 0 0 18px;
@@ -995,18 +782,10 @@ body:has(#v-change:checked) .hero-content { display: none; }
   font-style: italic;
 }
 
-.quote figcaption {
-  font-size: 0.86rem;
-  color: var(--white-70);
-}
+.quote figcaption { font-size: 0.86rem; color: var(--white-70); }
 
 /* ---------- 12. AI assistant, CV and contact ---------- */
-.assistant-layout {
-  display: grid;
-  grid-template-columns: 1fr 410px;
-  gap: 56px;
-  align-items: center;
-}
+.assistant-layout { display: grid; grid-template-columns: 1fr 410px; gap: 56px; align-items: center; }
 
 .assistant-frame {
   width: 100%;
@@ -1026,11 +805,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
   text-align: center;
 }
 
-.cv-box p {
-  color: var(--white-70);
-  margin-bottom: 28px;
-}
-
+.cv-box p { color: var(--white-70); margin-bottom: 28px; }
 .cv-box .btn { margin: 6px; }
 
 /* Contact: a dark night-sky panel with the heading on the left and
@@ -1055,14 +830,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
 }
 
 .contact-intro .section-intro { margin-bottom: 0; }
-
-.contact-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 14px;
-}
+.contact-list { display: grid; gap: 14px; }
 
 .contact-link {
   display: flex;
@@ -1099,16 +867,8 @@ body:has(#v-change:checked) .hero-content { display: none; }
   transition: background-color 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
-.contact-icon svg {
-  width: 20px;
-  height: 20px;
-}
-
-.contact-link:hover .contact-icon {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
+.contact-icon svg { width: 20px; height: 20px; }
+.contact-link:hover .contact-icon { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 .contact-text {
   flex: 1;
@@ -1122,22 +882,9 @@ body:has(#v-change:checked) .hero-content { display: none; }
   font-weight: 600;
 }
 
-.contact-text span {
-  font-size: 0.9rem;
-  color: var(--white-70);
-  overflow-wrap: anywhere;
-}
-
-.contact-arrow {
-  font-size: 1.2rem;
-  color: var(--white-70);
-  transition: transform 0.3s, color 0.3s;
-}
-
-.contact-link:hover .contact-arrow {
-  color: #fff;
-  transform: translate(3px, -3px);
-}
+.contact-text span { font-size: 0.9rem; color: var(--white-70); overflow-wrap: anywhere; }
+.contact-arrow { font-size: 1.2rem; color: var(--white-70); transition: transform 0.3s, color 0.3s; }
+.contact-link:hover .contact-arrow { color: #fff; transform: translate(3px, -3px); }
 
 /* Round chat button fixed to the corner; it links to #assistant */
 .chat-fab {
@@ -1205,11 +952,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
   max-width: 860px;
 }
 
-.project-page {
-  max-width: 860px;
-  padding-top: 8px;
-  padding-bottom: 90px;
-}
+.project-page { max-width: 860px; padding-top: 8px; padding-bottom: 90px; }
 
 .back-link {
   display: inline-block;
@@ -1220,36 +963,13 @@ body:has(#v-change:checked) .hero-content { display: none; }
 }
 
 .project-hero h1 { font-size: 2.8rem; }
-
-.project-hero .tags li {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.14);
-}
-
+.project-hero .tags li { color: #fff; background: rgba(255, 255, 255, 0.14); }
 .project-hero .role { color: var(--coral); }
-
-.project-page h2 {
-  font-size: 1.7rem;
-  margin-top: 44px;
-  color: var(--night);
-}
-
+.project-page h2 { font-size: 1.7rem; margin-top: 44px; color: var(--night); }
 .project-page figure { margin: 32px 0; }
-
-.project-page figure img {
-  border-radius: var(--radius);
-  box-shadow: 0 20px 50px rgba(11, 17, 48, 0.2);
-}
-
-.project-page figcaption {
-  font-size: 0.88rem;
-  color: var(--ink-soft);
-  margin-top: 10px;
-  text-align: center;
-}
-
+.project-page figure img { border-radius: var(--radius); box-shadow: 0 20px 50px rgba(11, 17, 48, 0.2); }
+.project-page figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 10px; text-align: center; }
 .project-page li { margin-bottom: 8px; }
-
 .project-page .back-link.bottom { color: var(--accent); }
 
 /* ---------- 14. Keyframes and scroll-driven animations ---------- */
@@ -1298,27 +1018,15 @@ body:has(#v-change:checked) .hero-content { display: none; }
    @supports applies it only in browsers that understand it; the others
    simply show everything without the effect. */
 @supports (animation-timeline: view()) {
-  #progress {
-    animation: grow-progress linear both;
-    animation-timeline: scroll(root);
-  }
-
-  .reveal {
-    animation: reveal linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 45%;
-  }
+  #progress { animation: grow-progress linear both; animation-timeline: scroll(root); }
+  .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
 }
 
 /* Visitors who ask their system for less motion get a still page */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-
+  *::after { animation: none !important; transition: none !important; }
   #progress { display: none; }
 }
 
@@ -1327,14 +1035,10 @@ body:has(#v-change:checked) .hero-content { display: none; }
   .nav-links { display: none; } /* the pill keeps logo, language and contact */
 
   .card-grid,
-  .project-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .project-grid { grid-template-columns: repeat(2, 1fr); }
 
   .assistant-layout,
-  .contact-panel {
-    grid-template-columns: 1fr;
-  }
+  .contact-panel { grid-template-columns: 1fr; }
 
   .hero h1,
   .hero-title { font-size: 3.4rem; }
@@ -1343,13 +1047,10 @@ body:has(#v-change:checked) .hero-content { display: none; }
 @media (max-width: 640px) {
   body { font-size: 16px; }
   h2 { font-size: 2rem; }
-
   .section { padding: 80px 0; }
-
   .site-header { top: 10px; }
   .nav { padding: 6px 6px 6px 10px; }
   .nav-cta { padding: 7px 12px; }
-
   .hero { padding: 120px 0 80px; }
   .hero h1,
   .hero-title { font-size: 2.5rem; }
@@ -1364,12 +1065,7 @@ body:has(#v-change:checked) .hero-content { display: none; }
   .about-card { padding: 24px; }
 
   /* The photo stops floating and sits above the text */
-  .profile-photo {
-    float: none;
-    width: 100%;
-    max-width: 280px;
-    margin: 0 0 24px;
-  }
+  .profile-photo { float: none; width: 100%; max-width: 280px; margin: 0 0 24px; }
 
   /* education list: the date moves above the title */
   .timeline-item { grid-template-columns: 1fr; padding: 24px 0; }
@@ -1377,33 +1073,12 @@ body:has(#v-change:checked) .hero-content { display: none; }
   .timeline-item > * { grid-column: 1; }
 
   .card-grid,
-  .skill-groups {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-panel {
-    padding: 40px 20px;
-    gap: 28px;
-  }
-
-  .contact-link {
-    padding: 14px 16px;
-  }
-
-  .project-grid {
-    grid-template-columns: 1fr;
-  }
-
+  .skill-groups { grid-template-columns: 1fr; }
+  .contact-panel { padding: 40px 20px; gap: 28px; }
+  .contact-link { padding: 14px 16px; }
+  .project-grid { grid-template-columns: 1fr; }
   .cv-box { padding: 44px 22px; }
-
   .assistant-frame { height: 500px; }
-
-  .chat-fab {
-    right: 14px;
-    bottom: 14px;
-    padding: 9px 16px 9px 9px;
-    font-size: 0.9rem;
-  }
-
+  .chat-fab { right: 14px; bottom: 14px; padding: 9px 16px 9px 9px; font-size: 0.9rem; }
   .project-hero h1 { font-size: 2rem; }
 }
