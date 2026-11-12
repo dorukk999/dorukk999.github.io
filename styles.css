@@ -370,239 +370,35 @@ img {
   margin: 6px;
 }
 
-/* ---------- "Who's visiting?" personalisation workflow ----------
-   The three visitor types are radio buttons. CSS :has() lets any rule ask
-   "is this radio checked anywhere on the page?", for example
-   body:has(#v-client:checked) — so one click can change the whole page:
-   the headline, the buttons, the workflow card and the order of sections.
+/* ---------- Personalisation by visitor type ----------
+   The visitor types are hidden radio buttons; the welcome screen's options
+   are their labels. CSS :has() lets any rule ask "is this radio checked
+   anywhere on the page?", for example body:has(#v-client:checked) — so one
+   click changes the headline, the buttons and the order of sections.
    Elements with .v-default are shown until a visitor type is picked;
    elements with .v-alt .v-client (etc.) are shown only for that type. */
-.workflow {
-  position: relative;
-  max-width: 760px;
-  margin: 44px auto 0;
-  text-align: left;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-}
-
-/* Title bar, like an app window */
-.wf-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-}
-
-.wf-dots span {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin-right: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.wf-title {
-  flex: 1;
-  font-family: Consolas, "Cascadia Code", monospace;
-  font-size: 0.85rem;
-  color: var(--white-70);
-}
-
-/* Reset is a label for the hidden "everyone" radio (#v-all) */
-.pf-reset {
-  display: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.pf-reset:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* The question and the three visitor buttons */
-.persona-question {
-  padding: 22px 24px 0;
-  text-align: center;
-}
-
-.persona-question p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 14px;
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: #fff;
-}
-
-.pf-step {
-  padding: 3px 10px;
-  border: 1px solid rgba(199, 210, 255, 0.35);
-  border-radius: 4px;
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #c7d2ff;
-}
-
-.persona-options {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-
-/* The real radio circles are hidden; their labels are the visible buttons */
-.persona-radio {
+.persona-radios {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-.persona-option {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
-}
-
-.persona-option svg {
-  width: 18px;
-  height: 18px;
-}
-
-.persona-option:hover {
-  border-color: rgba(199, 210, 255, 0.6);
-  background: var(--surface-2);
-}
-
-/* "+" means: the label directly after a checked radio */
-.persona-radio:checked + .persona-option {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.persona-radio:focus-visible + .persona-option {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
-
-/* The three workflow nodes: Trigger → Router → Personalize */
-.wf-nodes {
-  display: flex;
-  gap: 36px;
-  margin: 0;
-  padding: 26px 24px 16px;
-  list-style: none;
-}
-
-.wf-node {
-  position: relative;
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 16px 10px;
-  border-radius: 8px;
-  background: var(--night);
-  border: 1px solid var(--border);
-  text-align: center;
-}
-
-.wf-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 8px;
-  background: var(--surface-2);
-  border: 1px solid rgba(199, 210, 255, 0.3);
-  color: #c7d2ff;
-}
-
-.wf-icon svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Green check mark that pops onto the icon when the node finishes */
-.wf-icon::after {
-  content: "✓";
-  position: absolute;
-  top: -7px;
-  right: -7px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #3ddc84;
-  color: var(--night);
-  font-size: 0.7rem;
-  font-weight: 700;
-  line-height: 18px;
-  text-align: center;
-  transform: scale(0);
-}
-
-.wf-node strong {
+/* "✓ Personalised for clients … · Change" under the buttons */
+.persona-note {
+  margin: 22px 0 0;
   font-size: 0.9rem;
+  color: var(--white-70);
+}
+
+.persona-note label {
+  color: #c7d2ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.persona-note label:hover {
   color: #fff;
-}
-
-.wf-result {
-  min-height: 1.2em;
-  font-size: 0.78rem;
-  color: #9fe8c0;
-}
-
-/* Before a choice the nodes just say "waiting…" */
-.pf-idle .wf-result {
-  color: var(--white-70);
-  font-style: italic;
-}
-
-/* Dashed connector between nodes; the dashes move to show data flowing */
-.wf-node:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  width: 36px;
-  height: 2px;
-  background: repeating-linear-gradient(90deg, rgba(199, 210, 255, 0.5) 0 6px, transparent 6px 12px);
-  background-size: 12px 2px;
-  animation: flow-right 1s linear infinite;
-}
-
-.wf-status {
-  margin: 0;
-  padding: 0 24px 18px;
-  min-height: 1.4em;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--white-70);
 }
 
 /* Alternative headline (same look as the typed h1) */
@@ -620,13 +416,9 @@ img {
   display: none;
 }
 
-/* any visitor type picked → hide the default versions and show Reset */
+/* any visitor type picked → hide the default versions */
 body:has(.persona-radio:not(#v-all):checked) .v-default {
   display: none;
-}
-
-body:has(.persona-radio:not(#v-all):checked) .pf-reset {
-  display: inline-block;
 }
 
 /* show the versions for the picked type; they rise in as they appear */
@@ -635,35 +427,6 @@ body:has(#v-client:checked) .v-client,
 body:has(#v-student:checked) .v-student {
   display: block;
   animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-body:has(#v-recruiter:checked) .pf-flow.v-recruiter,
-body:has(#v-client:checked) .pf-flow.v-client,
-body:has(#v-student:checked) .pf-flow.v-student {
-  display: flex;
-}
-
-/* A flow that has just appeared "runs": each node lights up after
-   n × 0.35 s, gets its check mark, then shows its result */
-.pf-flow.v-alt .wf-node {
-  animation: node-on 0.45s calc(var(--n) * 0.35s) both;
-}
-
-.pf-flow.v-alt .wf-icon {
-  animation: icon-on 0.3s calc(var(--n) * 0.35s) both;
-}
-
-.pf-flow.v-alt .wf-icon::after {
-  animation: pop 0.3s calc(var(--n) * 0.35s + 0.2s) both;
-}
-
-.pf-flow.v-alt .wf-result {
-  animation: type-in 0.3s calc(var(--n) * 0.35s + 0.2s) both;
-}
-
-.wf-status .v-alt {
-  color: #9fe8c0;
-  font-weight: 600;
 }
 
 /* ----- Re-ordering the page -----
@@ -717,6 +480,166 @@ body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after
   letter-spacing: 0.08em;
 }
 
+/* ---------- Welcome screen ("Who's visiting?") ----------
+   It covers the page while the starting radio #v-all is still checked.
+   Its option buttons are <label>s for the radios in the hero, so a click
+   both personalises the page and closes the screen ("Just browsing"
+   checks #v-skip, which closes it without personalising).
+   :target is the element named in the URL after #, so a link such as
+   index.html#projects (used by the project pages and the TR/EN switch)
+   skips the welcome screen. */
+.gate {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+  background: var(--night);
+  color: #fff;
+  animation: type-in 0.4s both;
+}
+
+body:has(#v-all:checked):not(:has(:target)) .gate,
+body:has(#v-change:checked) .gate {
+  display: flex;
+}
+
+/* while it is open the page behind it can't scroll, and the hero waits:
+   hidden elements don't animate, so the typing effect starts only when
+   the hero appears */
+body:has(#v-all:checked):not(:has(:target)),
+body:has(#v-change:checked) {
+  overflow: hidden;
+}
+
+body:has(#v-all:checked):not(:has(:target)) .hero-content,
+body:has(#v-change:checked) .hero-content {
+  display: none;
+}
+
+.gate-skip {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gate-box {
+  position: relative; /* above the stars */
+  width: 100%;
+  max-width: 780px;
+  text-align: center;
+}
+
+.gate-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 28px;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.gate .eyebrow {
+  color: var(--coral);
+}
+
+.gate h2 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.gate-sub {
+  color: var(--white-70);
+  margin-bottom: 36px;
+}
+
+.gate-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* each option rises in a little after the previous one (--n = 0, 1, 2) */
+.gate-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
+  animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--n) * 0.1s) both;
+}
+
+.gate-option:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  transform: translateY(-3px);
+}
+
+.gate-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.gate-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.gate-option strong {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.gate-option span:last-child {
+  font-size: 0.88rem;
+  color: var(--white-70);
+}
+
+.gate-skip-link {
+  display: inline-block;
+  margin-top: 28px;
+  color: var(--white-70);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.gate-skip-link:hover {
+  color: #fff;
+}
+
+.gate-lang {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--white-70);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.gate-lang:hover {
+  color: #fff;
+}
+
 /* Typing effect. Every letter is its own <span class="ch"> with an index --i.
    Letter number i appears after  --start + i × --speed  seconds, so the text
    is "typed" one letter at a time. While a letter is the newest one, a thin
@@ -761,7 +684,6 @@ body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after
 
 /* The buttons and numbers rise in while the subtitle is being typed */
 .after-typing   { animation-delay: 3.2s; }
-.after-typing-2 { animation-delay: 3.6s; }
 
 /* ---------- 7. About (paper card with a floated photo) ----------
    The photo uses float: left; the text box uses display: flow-root so it
@@ -805,54 +727,47 @@ body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after
   margin: 8px 10px 0 0;
 }
 
-/* ---------- 8. Education and experience (timeline) ---------- */
-.glass-panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 40px;
-}
-
+/* ---------- 8. Education and experience ----------
+   A simple two-column list, like a printed CV: the date sits in a narrow
+   left column, the details on the right, and thin lines separate entries. */
 .timeline {
   list-style: none;
   margin: 0;
-  padding: 0 0 0 30px;
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0;
 }
 
+/* Each entry is a 2-column grid. Every child goes to column 2,
+   except the date, which takes column 1 next to all of them. */
 .timeline-item {
-  position: relative;
-  padding-bottom: 34px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 40px;
+  padding: 30px 0;
+  border-top: 1px solid var(--border);
 }
 
 .timeline-item:last-child {
-  padding-bottom: 0;
+  border-bottom: 1px solid var(--border);
 }
 
-/* The glowing dot on the timeline, drawn with a pseudo-element */
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: -39px;
-  top: 6px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--coral);
-  box-shadow: 0 0 0 4px rgba(242, 183, 142, 0.25);
+.timeline-item > * {
+  grid-column: 2;
 }
 
 .timeline-date {
-  font-size: 0.88rem;
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  padding-top: 4px;
+  font-size: 0.9rem;
   color: var(--white-70);
 }
 
 .timeline-item h3 {
-  margin: 4px 0 2px;
+  margin: 0 0 2px;
 }
 
 .org {
-  color: var(--coral);
+  color: #c7d2ff;
   font-weight: 600;
   margin-bottom: 8px;
 }
@@ -1462,43 +1377,6 @@ body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after
   to { background-position: 200% center; }
 }
 
-@keyframes flow-down {
-  to { background-position: 0 16px; }
-}
-
-@keyframes flow-right {
-  to { background-position: 12px 0; }
-}
-
-@keyframes node-on {
-  0% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-4px);
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.3);
-  }
-  100% {
-    transform: translateY(0);
-    border-color: rgba(47, 91, 255, 0.7);
-  }
-}
-
-@keyframes icon-on {
-  to {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-}
-
-@keyframes pop {
-  from { transform: scale(0); }
-  to   { transform: scale(1); }
-}
-
-
 @keyframes type-in {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -1577,41 +1455,6 @@ body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after
   .hero-title { font-size: 3.4rem; }
 }
 
-/* On narrow screens the workflow runs top to bottom */
-@media (max-width: 760px) {
-  .wf-dots { display: none; }
-
-  .wf-nodes {
-    flex-direction: column;
-    gap: 28px;
-    padding: 22px 18px 14px;
-  }
-
-  .wf-node {
-    flex-direction: row;
-    gap: 12px;
-    padding: 12px 14px;
-    text-align: left;
-  }
-
-  .wf-result {
-    margin-left: auto;
-    text-align: right;
-  }
-
-  .wf-node:not(:last-child)::after {
-    top: 100%;
-    left: 34px;
-    width: 2px;
-    height: 28px;
-    background: repeating-linear-gradient(to bottom, rgba(199, 210, 255, 0.5) 0 8px, transparent 8px 16px);
-    background-size: 2px 16px;
-    animation-name: flow-down;
-  }
-
-  .persona-question p { flex-direction: column; gap: 8px; }
-}
-
 @media (max-width: 640px) {
   body { font-size: 16px; }
   h2 { font-size: 2rem; }
@@ -1626,6 +1469,12 @@ body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after
   .hero h1,
   .hero-title { font-size: 2.5rem; }
 
+  /* welcome screen: options stacked, smaller title */
+  .gate { align-items: flex-start; padding-top: 70px; }
+  .gate h2 { font-size: 2.2rem; }
+  .gate-options { grid-template-columns: 1fr; }
+  .gate-option { padding: 18px; }
+
 
   .about-card { padding: 24px; }
 
@@ -1637,7 +1486,10 @@ body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after
     margin: 0 0 24px;
   }
 
-  .glass-panel { padding: 24px; }
+  /* education list: the date moves above the title */
+  .timeline-item { grid-template-columns: 1fr; padding: 24px 0; }
+  .timeline-date { grid-column: 1; grid-row: auto; padding-top: 0; }
+  .timeline-item > * { grid-column: 1; }
 
   .card-grid,
   .skill-groups {
