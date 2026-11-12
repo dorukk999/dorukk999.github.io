@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM&#x27;inizin Tetiklediği, Amazon Tarzı Proje Durum E-postaları | Dorukhan Turhan</title>
+  <meta name="description" content="Bir CRM durum değişikliği (sözleşme imzalandı, kurulum planlandı, iş tamamlandı) markalı, checkpoint-tracker&#x27;lı bir e-postayı otomatik olarak tetikliyor — bir kargo yerine bir hizmet işletmesine uygulanmış &quot;siparişim nerede&quot; deneyimi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../tr.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../tr.html#projects">Tüm projeler</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <a href="crm-project-status-emails.html" lang="en">EN</a>
+          <span class="active">TR</span>
+        </div>
+        <a href="../tr.html#contact" class="nav-cta">İletişime geç</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../tr.html#projects" class="back-link">← Tüm projelere dön</a>
+      <h1 class="fade-up">CRM&#x27;inizin Tetiklediği, Amazon Tarzı Proje Durum E-postaları</h1>
+      <p class="role fade-up delay-1">Rolüm: Otomasyon Mühendisi — n8n, Transactional E-posta Tasarımı ve CRM Entegrasyonu</p>
+      <ul class="tags fade-up delay-1"><li>n8n</li><li>E-posta Otomasyonu</li><li>CRM Otomasyonu</li><li>HTML E-posta Tasarımı</li><li>Airtable</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/cover-email-contract-signed.png" alt="CRM&#x27;inizin Tetiklediği, Amazon Tarzı Proje Durum E-postaları">
+    </figure>
+    <p>Birkaç gerçek otomasyon iş ilanında aynı talebin tekrar tekrar geçtiğini görünce kurdum: bir hizmet işletmesi (bunu tetikleyen brief&#x27;te ev tadilatı) müşterilerin, ekipteki hiç kimse manuel olarak durum güncellemesi yazmadan, Amazon&#x27;un sipariş takip e-postalarında olduğu gibi projelerinin hangi aşamada olduğunu her zaman bilmesini istiyor. Bu demo bilinçli olarak belirli bir CRM&#x27;e bağlanmadan genelleştirildi: burada gösterilen marka, metin ve CRM alan adları (&quot;Bright Bath Remodels&quot;) birer placeholder — her renk, logo, checkpoint etiketi ve tetikleme koşulu her müşteriye göre değiştirilmek üzere tasarlandı, koda gömülü değil.</p>
+    <h2>Bir metin yığını değil, markalı bir durum-tracker e-postası</h2>
+    <p>Her e-posta tek bir HTML şablonunu paylaşıyor — table tabanlı, inline stilli, böylece hem Gmail&#x27;de hem Outlook&#x27;ta tutarlı görünüyor — ve müşterinin hangi aşamada olduğuna göre otomatik güncellenen yatay bir checkpoint tracker&#x27;ı var (✓ tamamlandı, ● şu an, ○ sırada). Aynı şablon yolculuktaki dört farklı anı render ediyor; sadece başlık, gövde metni ve tracker&#x27;ın konumu değişiyor.</p>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/email-installation-scheduled.png" alt="Gmail&#x27;de render edilmiş gerçek bir e-posta, yolculuğun ortasında — tracker müşteri için tahmine yer bırakmadan tam olarak neyin bittiğini ve sırada ne olduğunu gösteriyor." loading="lazy">
+      <figcaption>Gmail&#x27;de render edilmiş gerçek bir e-posta, yolculuğun ortasında — tracker müşteri için tahmine yer bırakmadan tam olarak neyin bittiğini ve sırada ne olduğunu gösteriyor.</figcaption>
+    </figure>
+    <h2>Otomatik olarak eklenen sözleşme</h2>
+    <p>Sözleşme imzalandı e-postası bir PDF eki taşıyor; bu ek müşteri başına önceden yüklenmek yerine gönderim anında dinamik olarak çekiliyor. Bu demoda PDF üretilmiş bir örnek; gerçek bir kurulumda bu, müşterinin CRM&#x27;inin zaten ürettiği herhangi bir şeyle değiştirilir — e-imza aracından gelen imzalı bir sözleşme, bir iş kapsamı export&#x27;u ya da benzeri — workflow&#x27;un ihtiyacı olan tek şey belirli bir doküman kaynağı değil, çekilecek bir URL.</p>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/sample-contract.jpg" alt="Eklenen sözleşme — burada bir placeholder doküman, üretimde müşterinin gerçek sözleşme export&#x27;uyla değiştirilir." loading="lazy">
+      <figcaption>Eklenen sözleşme — burada bir placeholder doküman, üretimde müşterinin gerçek sözleşme export&#x27;uyla değiştirilir.</figcaption>
+    </figure>
+    <h2>n8n workflow&#x27;u: bir olay girer, doğru e-posta çıkar</h2>
+    <p>Tek bir webhook dört CRM olayından herhangi birini kabul ediyor, müşterinin journey kaydını Airtable&#x27;da upsert ediyor (e-posta üzerinden eşleştirilir, böylece tekrarlanan bir olay müşteriyi çoğaltmak yerine aynı kaydı günceller) ve sadece dosya eki gereken tek durum için dallanıyor. Tetikleyiciyi genel bir webhook&#x27;tan belirli bir CRM&#x27;in gerçek olay akışına değiştirmek, sadece o CRM&#x27;in API&#x27;sine yönlendirmek meselesi — altındaki render ve gönderme mantığı değişmiyor.</p>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/workflow-a-full.png" alt="Eksiksiz &quot;Project Journey Emails&quot; workflow&#x27;u — olayı ayrıştır, markalı e-postayı render et, CRM kaydını upsert et, sadece gerektiğinde dosya ekle, gönder." loading="lazy">
+      <figcaption>Eksiksiz &quot;Project Journey Emails&quot; workflow&#x27;u — olayı ayrıştır, markalı e-postayı render et, CRM kaydını upsert et, sadece gerektiğinde dosya ekle, gönder.</figcaption>
+    </figure>
+    <h2>Kendi kendine gönderilen bir hatırlatma, ve yorum isteyen bir kapanış</h2>
+    <p>Ayrı, zamanlanmış bir workflow her gün yarın gerçekleşecek kurulumları kontrol ediyor ve hatırlatmayı otomatik olarak tetikliyor — kimsenin hatırlaması gerekmiyor. Yolculuktaki son e-posta, memnuniyetin en yüksek olduğu anda — iş tam bittiği sırada — zamanlanmış bir yorum isteği butonuyla döngüyü kapatıyor.</p>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/email-project-completed.png" alt="Kapanış e-postası — tamamlandı checkpoint&#x27;i, artı memnuniyetin zirve yaptığı ana göre zamanlanmış bir yorum isteği butonu." loading="lazy">
+      <figcaption>Kapanış e-postası — tamamlandı checkpoint&#x27;i, artı memnuniyetin zirve yaptığı ana göre zamanlanmış bir yorum isteği butonu.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/workflow-b-full.png" alt="&quot;Installation Reminder Scheduler&quot; — her gün çalışıyor, yarının kurulumlarını buluyor, hatırlatmayı gönderiyor, asla iki kez tetiklenmesin diye gönderildi olarak işaretliyor." loading="lazy">
+      <figcaption>&quot;Installation Reminder Scheduler&quot; — her gün çalışıyor, yarının kurulumlarını buluyor, hatırlatmayı gönderiyor, asla iki kez tetiklenmesin diye gönderildi olarak işaretliyor.</figcaption>
+    </figure>
+    <h2>Teknoloji yığını</h2>
+    <ul>
+      <li>Otomasyon — n8n (Docker üzerinden self-hosted), webhook + zamanlanmış workflow&#x27;lar, n8n&#x27;in REST API&#x27;si üzerinden kurulup test edildi</li>
+      <li>E-posta — elle kurulmuş table tabanlı HTML şablonu (cross-client uyumlu), bu demo için Gmail üzerinden gönderiliyor; üretim hacminde deliverability ve sender reputation için özel bir transactional sağlayıcıya (örn. SendGrid, Postmark) geçilir — şablon ve tetikleme mantığı her iki durumda da aynı kalır</li>
+      <li>CRM yerine geçen — her müşterinin mevcut aşamasını, kurulum tarihini ve hatırlatma durumunu takip eden Airtable</li>
+      <li>Dokümanlar — gönderim anında çekilen dinamik PDF eki, herhangi bir müşterinin gerçek sözleşme kaynağıyla değiştirilebilir</li>
+    </ul>
+    <h2>Neyi kanıtlıyor</h2>
+    <ul>
+      <li>Tek bir müşteri için değil, yeniden kullanım için tasarlamak — marka, metin ve tetikleme koşullarının hepsi koda gömülü varsayımlar değil, değiştirilebilir noktalar</li>
+      <li>Demonun ötesini, üretimi düşünmek — kişisel bir gelen kutusunun ne zaman doğru araç olmaktan çıkıp bir transactional e-posta servisinin başladığını bilmek</li>
+      <li>Cross-client uyumlu HTML e-posta tasarımı (table layout&#x27;ları, inline CSS) — sadece otomasyona odaklı çoğu projenin tamamen atladığı bir beceri</li>
+      <li>Belirli bir CRM&#x27;i mimarinin kendisi değil, değiştirilebilir bir tetikleme kaynağı olarak ele alan, olay odaklı CRM entegrasyonu</li>
+    </ul>
+    <p><a href="../tr.html#projects" class="back-link bottom">← Tüm projelere dön</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Otomasyon Pipeline&#x27;ı: n8n ve Apify ile | Dorukhan Turhan</title>
+  <meta name="description" content="LinkedIn profillerini scrape eden, adayları Gemini AI ile puanlayan ve uygun olanları anında bir e-posta uyarısıyla birlikte doğrudan HubSpot&#x27;a aktaran otomatik bir n8n pipeline&#x27;ı.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../tr.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../tr.html#projects">Tüm projeler</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <a href="linkedin-automation-pipeline.html" lang="en">EN</a>
+          <span class="active">TR</span>
+        </div>
+        <a href="../tr.html#contact" class="nav-cta">İletişime geç</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../tr.html#projects" class="back-link">← Tüm projelere dön</a>
+      <h1 class="fade-up">LinkedIn Otomasyon Pipeline&#x27;ı: n8n ve Apify ile</h1>
+      <p class="role fade-up delay-1">Rolüm: AI Otomasyon Mühendisi / Workflow Mimarı</p>
+      <ul class="tags fade-up delay-1"><li>n8n</li><li>API Entegrasyonu</li><li>Prompt Engineering</li><li>Web Scraping</li><li>HubSpot</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/linkedin-automation-pipeline/cover-workflow.jpg" alt="LinkedIn Otomasyon Pipeline&#x27;ı: n8n ve Apify ile">
+    </figure>
+    <p>AI destekli aday eleme için otomatik bir n8n pipeline&#x27;ı kurdum. Bir formla tetiklenen sistem, LinkedIn profillerini Apify üzerinden scrape ediyor. Google Gemini API bir işe alım uzmanı gibi davranıp profili iş gereksinimleriyle karşılaştırıyor ve bir JSON fit score döndürüyor. Özel bir JavaScript kodu veriyi ayrıştırıyor. 75&#x27;in üzerinde puan alan adaylar otomatik olarak HubSpot CRM&#x27;e senkronize ediliyor ve bir e-posta uyarısı tetikliyor — manuel inceleme tamamen ortadan kalkıyor.</p>
+    <h2>n8n Otomasyon Workflow Mimarisi</h2>
+    <p>Bu görsel, n8n üzerine kurulu otomatik LinkedIn aday eleme pipeline&#x27;ının uçtan uca tüm mimarisini gösteriyor. Süreç bir &quot;On form submission&quot; tetikleyicisiyle başlıyor. Ardından gönderilen LinkedIn profil verisini scrape etmek için Apify kullanılıyor. Çıkarılan bu veri bir HTTP Request üzerinden Gemini AI tarafından analiz ediliyor, sonuçlar özel bir JavaScript node&#x27;u ile yapılandırılmış JSON formatına ayrıştırılıyor. Bir &quot;If&quot; node&#x27;u, adayın AI tarafından üretilen fit score&#x27;unu değerlendiriyor. Aday belirlenen eşiği geçerse (örn. &gt;75), HubSpot CRM&#x27;de otomatik olarak oluşturuluyor veya güncelleniyor ve Gmail üzerinden anında bir e-posta bildirimi gönderiliyor. Aday eşiği karşılamazsa, workflow bir &quot;No Operation&quot; node&#x27;una yönlenip herhangi bir CRM kaydı oluşturmadan zarifçe sonlanıyor. Bu temel pipeline, manuel özgeçmiş taramasına olan ihtiyacı tamamen ortadan kaldırıyor.</p>
+    <h2>Workflow Tetikleme Formu</h2>
+    <p>Bu basit, özel form otomasyonun giriş noktası olarak çalışıyor. Bir adayın Ad, Soyad ve LinkedIn URL&#x27;sinin gönderilmesi, n8n pipeline&#x27;ını anında tetikleyerek profil scraping ve AI değerlendirme sürecini başlatıyor.</p>
+    <figure>
+      <img src="../images/projects/linkedin-automation-pipeline/trigger-form.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <h2>Koşullu Mantık ve AI JSON Çıktısı</h2>
+    <p>Bu ekran görüntüsü, workflow&#x27;un bir &quot;If&quot; node&#x27;u kullanan karar aşamasını gösteriyor. Ayrıştırılan fit_score değerinin 75 puanlık eşiği kesin olarak aşıp aşmadığını değerlendiriyor. Sağ paneldeki, Gemini AI tarafından başarıyla üretilen yapılandırılmış JSON yanıtı; adayın detaylarını çıkarmış, 95 gibi yüksek bir puan atamış ve belirli teknik güçlü yanları detaylandırmış durumda. Puan gereksinimi aştığı için veri &quot;True Branch&quot; üzerinden başarıyla geçip CRM senkronizasyonunu ve e-posta uyarısını tetikliyor.</p>
+    <figure>
+      <img src="../images/projects/linkedin-automation-pipeline/conditional-logic-json.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <h2>Otomatik HubSpot CRM Senkronizasyonu</h2>
+    <p>Bu ekran görüntüsü, otomasyon pipeline&#x27;ının başarılı bitiş noktasını gösteriyor. AI değerlendirme eşiğini geçen uygun aday, otomatik olarak HubSpot Contacts veritabanına aktarılmış durumda. n8n workflow&#x27;u, ayrıştırılan aday verisini (ad ve e-posta gibi) sorunsuzca doğrudan CRM&#x27;e eşliyor; işe alım uzmanlarına hiçbir manuel veri girişi olmadan temiz, aksiyona hazır bir profil sunuyor.</p>
+    <figure>
+      <img src="../images/projects/linkedin-automation-pipeline/hubspot-sync.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <h2>Otomatik E-posta Bildirimi</h2>
+    <p>Bu görsel, workflow&#x27;un son adımını gösteriyor: n8n Gmail node&#x27;u tarafından tetiklenen anlık bir e-posta uyarısı. Bir aday AI değerlendirmesini geçtiğinde sistem, bu biçimlendirilmiş HTML e-postayı otomatik olarak işe alım uzmanına gönderiyor. Gemini AI analizinden çıkarılan dinamik &quot;Fit Score&quot;u belirgin şekilde öne çıkarıyor ve HubSpot CRM&#x27;de yeni oluşturulan profili incelemek için doğrudan bir yönlendirme sunuyor. Bu sayede ilgili kişiler, gelen başvuruları manuel olarak takip etmelerine gerek kalmadan en nitelikli adaylardan anında haberdar oluyor.</p>
+    <figure>
+      <img src="../images/projects/linkedin-automation-pipeline/email-notification.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <p><a href="../tr.html#projects" class="back-link bottom">← Tüm projelere dön</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot Dedup, Güven Skorlu İnceleme ve Zenginleştirme | Dorukhan Turhan</title>
+  <meta name="description" content="Bağımsız bir Python mikroservisi, gelen şirketleri HubSpot&#x27;a karşı fuzzy-match ediyor; n8n ise CRM yazmalarını körlemesine otomatikleştirmek yerine bu skoru bir karara dönüştürüyor — otomatik birleştir, insan incelemesine işaretle ya da yeni oluştur.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../tr.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../tr.html#projects">Tüm projeler</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <a href="hubspot-dedup-pipeline.html" lang="en">EN</a>
+          <span class="active">TR</span>
+        </div>
+        <a href="../tr.html#contact" class="nav-cta">İletişime geç</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../tr.html#projects" class="back-link">← Tüm projelere dön</a>
+      <h1 class="fade-up">HubSpot Dedup, Güven Skorlu İnceleme ve Zenginleştirme</h1>
+      <p class="role fade-up delay-1">Rolüm: Python Geliştirici ve Otomasyon Mühendisi — CRM Veri Bütünlüğü ve HubSpot API</p>
+      <ul class="tags fade-up delay-1"><li>Python</li><li>FastAPI</li><li>HubSpot API</li><li>n8n</li><li>CRM Otomasyonu</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/cover-api-docs.png" alt="HubSpot Dedup, Güven Skorlu İnceleme ve Zenginleştirme">
+    </figure>
+    <p>Upwork&#x27;te kendimi &quot;CRM Automation &amp; n8n Specialist | Python, API, HubSpot&quot; olarak konumlandırıyorum, ama teslim ettiğim işlerin çoğu n8n&#x27;in no-code katmanına dayanıyordu — bu proje o unvanın diğer yarısını kanıtlamak için var. Gelen şirket kayıtlarını HubSpot&#x27;a karşı fuzzy-match eden gerçek, bağımsız bir Python mikroservisi (bir n8n Code node&#x27;u değil) ve bu eşleşmeleri güven skorlu kararlara dönüştüren bir n8n workflow&#x27;u: açıkça aynı şirketse otomatik birleştir, belirsizse bir insana sor, gerçekten yeniyse baştan oluştur. Canlı bir HubSpot test portalında zaten duran gerçek mükerrer verilere karşı kurulup test edildi — önceki testlerden kalan üç ayrı &quot;Melbourne Dental Clinic&quot; kaydı, tam olarak bunun temizlemesi gereken türden bir karmaşa.</p>
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/pipeline-overview.png" alt="Tüm pipeline — HubSpot adaylarını çek, gelen her şirketi zenginleştirip puanla, ardından bir batch özeti loglamadan önce birleştir / incele / oluştur olarak dallan." loading="lazy">
+      <figcaption>Tüm pipeline — HubSpot adaylarını çek, gelen her şirketi zenginleştirip puanla, ardından bir batch özeti loglamadan önce birleştir / incele / oluştur olarak dallan.</figcaption>
+    </figure>
+    <h2>Bir Code node değil, gerçek bir Python servisi</h2>
+    <p>Fuzzy-matching mantığı — şirket isimlerini ve domain&#x27;lerini karşılaştırmak, iki kaydın aynı işletme olma ihtimalini puanlamak — bir n8n Code node&#x27;unun içine gömülü değil, kendi endpoint&#x27;lerine (/match/company, /match/contact, /enrich/company) sahip bağımsız bir FastAPI servisinde çalışıyor. Kimlik doğrulamalı her çağrının (HubSpot, Airtable, Gmail) sahibi n8n; Python servisinin kendine ait hiçbir credential&#x27;ı yok ve sadece hesaplama yapıyor — rapidfuzz üzerinden eşleştirme, ve bir şirketin kendi web sitesini çekip başlığını ve açıklamasını alarak eksikleri dolduran hafif bir enrichment adımı.</p>
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/match-enrich-segment.png" alt="n8n, eşleşme adayı olarak mevcut HubSpot şirketlerini çekiyor, gelen şirketi kendi web sitesinden zenginleştirmek için Python servisini çağırıyor, ardından her adaya karşı puanlıyor." loading="lazy">
+      <figcaption>n8n, eşleşme adayı olarak mevcut HubSpot şirketlerini çekiyor, gelen şirketi kendi web sitesinden zenginleştirmek için Python servisini çağırıyor, ardından her adaya karşı puanlıyor.</figcaption>
+    </figure>
+    <h2>Körlemesine otomasyon değil, güven skorlu kararlar</h2>
+    <p>%85&#x27;in üzerindeki bir skor doğrudan eşleşen HubSpot kaydına birleşiyor — belirsizlik yok, risk yok. %50&#x27;nin altındaysa açıkça yeni bir şirkettir ve oluşturuluyor. Arada kalan her şey, körlemesine otomasyonun asıl zarar verdiği tehlikeli orta bölge; bu yüzden bunlar bunun yerine bir Airtable inceleme kuyruğuna gidiyor — skoruyla ve neredeyse eşleştiği adayla birlikte, bir insanın onaylaması veya reddetmesi için. Her batch çalıştırması ayrıca bir özet e-postası tetikliyor — birleştirilen / işaretlenen / oluşturulan sayıları — böylece ne olduğunu anlamak için manuel takibe gerek kalmıyor.</p>
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/confidence-branching-segment.png" alt="Üç yönlü karar: otomatik birleştir, insan inceleme kuyruğu ya da yeni oluştur — her branch, tek bir puanlama adımından bağımsız olarak ulaşılabilir." loading="lazy">
+      <figcaption>Üç yönlü karar: otomatik birleştir, insan inceleme kuyruğu ya da yeni oluştur — her branch, tek bir puanlama adımından bağımsız olarak ulaşılabilir.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/summary-email.jpg" alt="Bu tam test çalıştırmasından gelen gerçek batch özet e-postası — bir birleştirme, bir inceleme işareti, bir yeni şirket; n8n&#x27;in Gmail entegrasyonu üzerinden otomatik olarak gönderildi." loading="lazy">
+      <figcaption>Bu tam test çalıştırmasından gelen gerçek batch özet e-postası — bir birleştirme, bir inceleme işareti, bir yeni şirket; n8n&#x27;in Gmail entegrasyonu üzerinden otomatik olarak gönderildi.</figcaption>
+    </figure>
+    <h2>Teknoloji yığını</h2>
+    <ul>
+      <li>Python — FastAPI mikroservisi, eşleştirme için rapidfuzz, hafif web sitesi enrichment&#x27;ı için BeautifulSoup</li>
+      <li>Otomasyon — n8n (Docker üzerinden self-hosted), sadece görsel editör üzerinden değil, n8n&#x27;in REST API&#x27;si üzerinden kurulup test edildi</li>
+      <li>HubSpot API — bir HubSpot Private App token&#x27;ı ile kimlik doğrulanmış gerçek CRM okuma/yazma işlemleri (Companies nesnesinde GET/PATCH/POST)</li>
+      <li>İnceleme kuyruğu — orta güvenli eşleşmeleri insan onayı için bekleten Airtable</li>
+    </ul>
+    <h2>Neyi kanıtlıyor</h2>
+    <ul>
+      <li>Hesaplamayı orkestrasyondan ayırmak — eşleştirmeyi yapan gerçek bir backend servisi, auth ve veri akışını yapan n8n; her biri en iyi olduğu işi yapıyor</li>
+      <li>Hep ya da hiç yerine güven skorlu otomasyon — CRM temizliği isteyen müşterilerin gerçekten istediği kalıp, körlemesine birleştirme değil</li>
+      <li>Sadece bir no-code connector değil, doğrudan HubSpot REST API entegrasyonu — daha güvenilir yol olduğunda soyutlamanın altında çalışmaktan çekinmemek</li>
+      <li>Bu portfolyonun geri kalanıyla aynı API odaklı kur-ve-doğrula workflow&#x27;u — sadece editörde tıklanarak değil, n8n&#x27;in REST API&#x27;si ve gerçek execution loglarıyla kurulup test edildi</li>
+    </ul>
+    <p><a href="../tr.html#projects" class="back-link bottom">← Tüm projelere dön</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

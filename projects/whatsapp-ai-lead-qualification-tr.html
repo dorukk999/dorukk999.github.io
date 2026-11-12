@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp AI Lead Nitelendirme ve CRM Senkronizasyonu | Dorukhan Turhan</title>
+  <meta name="description" content="AI destekli bir WhatsApp lead nitelendirme sisteminin kendi başıma kurduğum bir demosu: gönderenlerin eklediği görselleri okuyor, yapılandırılmış lead verisini doğrudan bir CRM&#x27;e çıkarıyor ve hâlâ eksik olan bilgiye göre uyarlanan takip mesajları gönderiyor.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../tr.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../tr.html#projects">Tüm projeler</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <a href="whatsapp-ai-lead-qualification.html" lang="en">EN</a>
+          <span class="active">TR</span>
+        </div>
+        <a href="../tr.html#contact" class="nav-cta">İletişime geç</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../tr.html#projects" class="back-link">← Tüm projelere dön</a>
+      <h1 class="fade-up">WhatsApp AI Lead Nitelendirme ve CRM Senkronizasyonu</h1>
+      <p class="role fade-up delay-1">Rolüm: Otomasyon Mühendisi — n8n, AI Konuşma Tasarımı ve CRM Entegrasyonu</p>
+      <ul class="tags fade-up delay-1"><li>n8n</li><li>CRM Otomasyonu</li><li>AI Ajan Geliştirme</li><li>Airtable</li><li>Lead Nitelendirme</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/chat-conversation.png" alt="WhatsApp AI Lead Nitelendirme ve CRM Senkronizasyonu">
+    </figure>
+    <p>Bunu, gerçek otomasyon iş ilanlarında tekrar eden bir kalıbı fark ettikten sonra kurdum: WhatsApp tabanlı lead yakalama çalıştıran işletmeler, temel konuşmayı gayet iyi yönetiyor ama üç spesifik noktada tıkanıyor — gönderenlerin eklediği görselleri okumak, AI&#x27;ın anladıklarını bir sohbet metni yığını yerine yapılandırılmış CRM alanlarına dönüştürmek, ve aynı hatırlatmayı tekrarlamak yerine gerçekten neyin hâlâ eksik olduğunu bilen takip mesajları göndermek. Bu sistemin kendi kendine yeten bir versiyonunu uçtan uca kurdum — gerçek n8n workflow&#x27;ları, gerçek bir Airtable CRM, gerçek Gemini destekli bir konuşma — sadece WhatsApp kanalının kendisi simüle edildi, çünkü bir demo için Meta Business API onayı almak gerekli değil.</p>
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/pipeline-overview.png" alt="n8n&#x27;deki eksiksiz &quot;Inbound Message Handler&quot; pipeline&#x27;ı, baştan sona — webhook girişi, görsel/metin dallanması, merge, lead&#x27;i sorgulama, Gemini&#x27;yi çağırma, CRM&#x27;e geri yazma, konuşmanın her iki tarafını loglama, yanıt verme." loading="lazy">
+      <figcaption>n8n&#x27;deki eksiksiz &quot;Inbound Message Handler&quot; pipeline&#x27;ı, baştan sona — webhook girişi, görsel/metin dallanması, merge, lead&#x27;i sorgulama, Gemini&#x27;yi çağırma, CRM&#x27;e geri yazma, konuşmanın her iki tarafını loglama, yanıt verme.</figcaption>
+    </figure>
+    <h2>Görselleri sadece saklamak değil, okumak</h2>
+    <p>Bir lead fotoğraf gönderdiğinde — bir referans örneği, ambalaj, ürün fotoğrafı — workflow dallanıyor, görseli kısa bir açıklama için doğrudan Gemini&#x27;nin vision modeline gönderiyor, ardından bu açıklamayı konuşma AI&#x27;ının yanıt verirken kullandığı aynı context&#x27;e katıyor. Görsel, sadece bir alanda duran bir ek dosya değil; AI&#x27;ın bir sonra ne söyleyeceğini ve CRM&#x27;e ne yazılacağını doğrudan şekillendiriyor.</p>
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/image-handling-branch.png" alt="Görsel işleme branch&#x27;i — metin ve görsel mesajlar Gemini üzerinden farklı yollardan geçiyor, ardından CRM sorgusundan önce tekrar birleşiyor." loading="lazy">
+      <figcaption>Görsel işleme branch&#x27;i — metin ve görsel mesajlar Gemini üzerinden farklı yollardan geçiyor, ardından CRM sorgusundan önce tekrar birleşiyor.</figcaption>
+    </figure>
+    <h2>Metin yığını değil, yapılandırılmış çıkarım</h2>
+    <p>AI sadece sohbet etmiyor — her yanıt, Gemini&#x27;nin response schema&#x27;sı üzerinden yapılandırılmış JSON olarak üretiliyor (isim, ürün ilgisi, miktar, referans linkleri, konuşma aşaması), yani bir paragraftan regex ile bir şey çekmeye gerek kalmıyor. Bu alanlar, ziyaretçinin WhatsApp ID&#x27;sine göre eşleştirilerek doğrudan Leads tablosuna upsert ediliyor — geri dönen bir kişi yeni bir kayıt oluşturmak yerine mevcut kaydını günceller. Gelen ve giden her mesaj da bağlı bir Messages tablosuna loglanıyor; bu da yapılandırılmış anlık görüntünün yanında eksiksiz bir audit trail sağlıyor.</p>
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/crm-writeback.png" alt="Sorgudan CRM&#x27;e geri yazmaya — Gemini&#x27;nin yapılandırılmış yanıtı Lead kaydına upsert ediliyor ve Messages tablosuna loglanıyor." loading="lazy">
+      <figcaption>Sorgudan CRM&#x27;e geri yazmaya — Gemini&#x27;nin yapılandırılmış yanıtı Lead kaydına upsert ediliyor ve Messages tablosuna loglanıyor.</figcaption>
+    </figure>
+    <h2>Neyin eksik olduğunu bilen takip mesajları</h2>
+    <p>Ayrı, zamanlanmış bir workflow sessizleşen lead&#x27;leri kontrol ediyor ve aynı genel hatırlatmayı göndermek yerine, hangi spesifik alanın hâlâ boş olduğuna bakıyor — ürün ilgisi, miktar veya referans linkleri — ve tam o eksiklik için yazılmış bir takip mesajı gönderiyor. Yanıtsız üç denemenin ardından lead, sonsuza kadar rahatsız edilmek yerine Stalled olarak işaretleniyor.</p>
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/followup-scheduler.png" alt="Follow-up Scheduler — durağanlaşan lead&#x27;leri buluyor, mesajı neyin eksik olduğuna göre belirliyor, loglar ve lead&#x27;in takip sayısını günceller." loading="lazy">
+      <figcaption>Follow-up Scheduler — durağanlaşan lead&#x27;leri buluyor, mesajı neyin eksik olduğuna göre belirliyor, loglar ve lead&#x27;in takip sayısını günceller.</figcaption>
+    </figure>
+    <h2>Teknoloji yığını</h2>
+    <ul>
+      <li>Otomasyon — n8n (Docker üzerinden self-hosted), workflow&#x27;lar n8n&#x27;in REST API&#x27;si üzerinden kurulup test edildi</li>
+      <li>AI — Google Gemini (konuşma + vision), serbest metin ayrıştırma yerine response schema üzerinden yapılandırılmış JSON çıktısı</li>
+      <li>CRM — Airtable (Leads + Messages tabloları, bağlı kayıtlar, eşleşmede upsert)</li>
+      <li>Kanal simülasyonu — gerçek WhatsApp Cloud API formatında webhook payload&#x27;ları gönderen küçük bir WhatsApp tarzı sohbet arayüzü (vanilla HTML/JS)</li>
+    </ul>
+    <h2>Neyi kanıtlıyor</h2>
+    <ul>
+      <li>Debug edilebilir kalan çok dallı n8n workflow&#x27;ları tasarlamak (görsel/metin, merge noktaları, koşullu takip mantığı)</li>
+      <li>Bir sohbet dökümünü sonradan didiklemek yerine, bir LLM&#x27;in structured-output modunu doğrudan bir CRM şemasına yazmak için kullanmak</li>
+      <li>AI&#x27;ın hafızası olarak sadece bir sohbet penceresini değil, bir CRM alanını ele almak — geri dönen bir lead&#x27;in bilinen bilgisi bir sonraki prompt&#x27;a geri besleniyor</li>
+      <li>Otomasyonu sadece editörde tıklayarak değil, uçtan uca API üzerinden kurup test etmek (workflow oluşturma, execution logları, canlı webhook çağrıları)</li>
+    </ul>
+    <p><a href="../tr.html#projects" class="back-link bottom">← Tüm projelere dön</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

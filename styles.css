@@ -1,0 +1,1672 @@
+/* =========================================================
+   Dorukhan Turhan — personal website
+   One stylesheet shared by every page (index, tr, projects/*).
+   No JavaScript: every effect below is pure CSS.
+   ========================================================= */
+
+/* ---------- 1. Design tokens (CSS variables) ----------
+   Colours, fonts and sizes are defined once and reused with var(--name).
+   The page background stays in night-sky tones (navy and blue); coral is only
+   a small accent colour and cream is used for light cards. */
+:root {
+  --night: #0b1130;
+  --night-soft: #1c2b6b;
+  --coral: #f2b78e;
+  --cream: #faf3ea;
+  --ink: #14141c;
+  --ink-soft: #4a4a57;
+  --accent: #2f5bff;
+  --white-70: rgba(255, 255, 255, 0.72);
+  --surface: #121a45;      /* cards and panels on the navy page */
+  --surface-2: #19235a;    /* hover / inner tiles */
+  --border: #27326c;       /* one border colour for everything */
+  --radius: 10px;
+  --max-width: 1120px;
+  --font-body: "Geist", "Inter", "Segoe UI", Arial, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+}
+
+/* ---------- 2. Base styles ---------- */
+* {
+  box-sizing: border-box; /* width includes padding and border */
+}
+
+html {
+  scroll-behavior: smooth;   /* menu links glide to their section */
+  scroll-padding-top: 96px;  /* keeps section titles below the floating menu */
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--night);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+h2 { font-size: 2.6rem; }
+h3 { font-size: 1.3rem; }
+
+p { margin: 0 0 1em; }
+
+a { color: var(--accent); }
+
+img {
+  max-width: 100%;  /* images never overflow their container */
+  display: block;
+}
+
+/* Centres content and limits line length on wide screens */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- 3. Floating "pill" navigation ----------
+   The header is fixed; the nav inside it is a rounded, frosted-glass bar.
+   backdrop-filter blurs whatever is scrolling behind it. */
+.site-header {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: 0 16px;
+}
+
+.nav {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 8px 8px 14px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(11, 17, 48, 0.18);
+  backdrop-filter: blur(16px) saturate(160%);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Logo: "DT" initials in a solid blue circle */
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  display: block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--ink);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* EN / TR switch: the current language is a highlighted <span>,
+   the other one is a normal link to the translated page */
+.lang-toggle {
+  display: flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(20, 20, 28, 0.07);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.lang-toggle span,
+.lang-toggle a {
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.lang-toggle .active {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.nav-cta {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.nav-cta:hover {
+  background: #1f47e0;
+}
+
+/* Thin bar at the very top that fills as you scroll (see section 14) */
+#progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 30;
+}
+
+/* ---------- 4. Buttons ---------- */
+.btn {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding: 14px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+  background: #1f47e0;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+}
+
+.btn-ghost {
+  color: #fff;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.btn-dark {
+  background: var(--night);
+  color: #fff;
+}
+
+/* ---------- 5. Sections ----------
+   The whole page sits on one flat navy colour; a thin line separates
+   the sections instead of colour gradients. */
+.section {
+  position: relative;
+  padding: 110px 0;
+  border-top: 1px solid var(--border);
+}
+
+
+/* Sections on the dark part of the page use light text */
+.on-dark {
+  color: #fff;
+}
+
+.on-dark .section-intro {
+  color: var(--white-70);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+/* Small dot before every section label */
+.eyebrow::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.on-dark .eyebrow {
+  color: var(--coral);
+}
+
+.section-intro {
+  max-width: 640px;
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  margin-bottom: 48px;
+}
+
+/* ---------- 6. Hero (night sky) ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--night);
+  color: #fff;
+  text-align: center;
+  padding: 140px 0 100px;
+}
+
+/* Two star layers made of tiny radial gradients repeated across the sky.
+   They fade in and out at different speeds, so the stars twinkle. */
+.stars,
+.stars::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 120px 80px, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 200px 160px, #dfe6ff, transparent),
+    radial-gradient(1px 1px at 60px 200px, #fff, transparent),
+    radial-gradient(1px 1px at 260px 40px, #fff, transparent);
+  background-size: 300px 260px;
+  animation: twinkle 5s ease-in-out infinite alternate;
+}
+
+.stars::after {
+  content: "";
+  background-size: 420px 380px;
+  background-position: 140px 90px;
+  animation-duration: 3.5s;
+  animation-delay: 1.5s;
+}
+
+.hero-content {
+  position: relative; /* sits above the stars and orbs */
+  max-width: 1040px;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  margin: 28px 0 22px;
+}
+
+/* Headline text filled with a moving gradient instead of a flat colour */
+.gradient-text {
+  background: linear-gradient(90deg, #fff 0%, #c7d2ff 30%, var(--coral) 55%, #fff 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s linear infinite;
+}
+
+.hero-sub {
+  font-size: 1.2rem;
+  color: var(--white-70);
+  max-width: 640px;
+  margin: 0 auto 36px;
+}
+
+.hero .btn {
+  margin: 6px;
+}
+
+/* ---------- "Who's visiting?" personalisation workflow ----------
+   The three visitor types are radio buttons. CSS :has() lets any rule ask
+   "is this radio checked anywhere on the page?", for example
+   body:has(#v-client:checked) — so one click can change the whole page:
+   the headline, the buttons, the workflow card and the order of sections.
+   Elements with .v-default are shown until a visitor type is picked;
+   elements with .v-alt .v-client (etc.) are shown only for that type. */
+.workflow {
+  position: relative;
+  max-width: 760px;
+  margin: 44px auto 0;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+/* Title bar, like an app window */
+.wf-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.wf-dots span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.wf-title {
+  flex: 1;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 0.85rem;
+  color: var(--white-70);
+}
+
+/* Reset is a label for the hidden "everyone" radio (#v-all) */
+.pf-reset {
+  display: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pf-reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* The question and the three visitor buttons */
+.persona-question {
+  padding: 22px 24px 0;
+  text-align: center;
+}
+
+.persona-question p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.pf-step {
+  padding: 3px 10px;
+  border: 1px solid rgba(199, 210, 255, 0.35);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c7d2ff;
+}
+
+.persona-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* The real radio circles are hidden; their labels are the visible buttons */
+.persona-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.persona-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.persona-option svg {
+  width: 18px;
+  height: 18px;
+}
+
+.persona-option:hover {
+  border-color: rgba(199, 210, 255, 0.6);
+  background: var(--surface-2);
+}
+
+/* "+" means: the label directly after a checked radio */
+.persona-radio:checked + .persona-option {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.persona-radio:focus-visible + .persona-option {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* The three workflow nodes: Trigger → Router → Personalize */
+.wf-nodes {
+  display: flex;
+  gap: 36px;
+  margin: 0;
+  padding: 26px 24px 16px;
+  list-style: none;
+}
+
+.wf-node {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 10px;
+  border-radius: 8px;
+  background: var(--night);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.wf-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid rgba(199, 210, 255, 0.3);
+  color: #c7d2ff;
+}
+
+.wf-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Green check mark that pops onto the icon when the node finishes */
+.wf-icon::after {
+  content: "✓";
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3ddc84;
+  color: var(--night);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  transform: scale(0);
+}
+
+.wf-node strong {
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.wf-result {
+  min-height: 1.2em;
+  font-size: 0.78rem;
+  color: #9fe8c0;
+}
+
+/* Before a choice the nodes just say "waiting…" */
+.pf-idle .wf-result {
+  color: var(--white-70);
+  font-style: italic;
+}
+
+/* Dashed connector between nodes; the dashes move to show data flowing */
+.wf-node:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 36px;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, rgba(199, 210, 255, 0.5) 0 6px, transparent 6px 12px);
+  background-size: 12px 2px;
+  animation: flow-right 1s linear infinite;
+}
+
+.wf-status {
+  margin: 0;
+  padding: 0 24px 18px;
+  min-height: 1.4em;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--white-70);
+}
+
+/* Alternative headline (same look as the typed h1) */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 28px 0 22px;
+  color: #fff;
+}
+
+/* ----- Switching content by visitor type ----- */
+.v-alt {
+  display: none;
+}
+
+/* any visitor type picked → hide the default versions and show Reset */
+body:has(.persona-radio:not(#v-all):checked) .v-default {
+  display: none;
+}
+
+body:has(.persona-radio:not(#v-all):checked) .pf-reset {
+  display: inline-block;
+}
+
+/* show the versions for the picked type; they rise in as they appear */
+body:has(#v-recruiter:checked) .v-recruiter,
+body:has(#v-client:checked) .v-client,
+body:has(#v-student:checked) .v-student {
+  display: block;
+  animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+body:has(#v-recruiter:checked) .pf-flow.v-recruiter,
+body:has(#v-client:checked) .pf-flow.v-client,
+body:has(#v-student:checked) .pf-flow.v-student {
+  display: flex;
+}
+
+/* A flow that has just appeared "runs": each node lights up after
+   n × 0.35 s, gets its check mark, then shows its result */
+.pf-flow.v-alt .wf-node {
+  animation: node-on 0.45s calc(var(--n) * 0.35s) both;
+}
+
+.pf-flow.v-alt .wf-icon {
+  animation: icon-on 0.3s calc(var(--n) * 0.35s) both;
+}
+
+.pf-flow.v-alt .wf-icon::after {
+  animation: pop 0.3s calc(var(--n) * 0.35s + 0.2s) both;
+}
+
+.pf-flow.v-alt .wf-result {
+  animation: type-in 0.3s calc(var(--n) * 0.35s + 0.2s) both;
+}
+
+.wf-status .v-alt {
+  color: #9fe8c0;
+  font-weight: 600;
+}
+
+/* ----- Re-ordering the page -----
+   main is a flex column, so the CSS "order" property can move whole
+   sections up or down without touching the HTML. The
+   page is one flat colour, so sections can move in any order. */
+main {
+  display: flex;
+  flex-direction: column;
+  background: var(--night);
+}
+
+body:has(.persona-radio:not(#v-all):checked) main > .hero    { order: -2; }
+body:has(.persona-radio:not(#v-all):checked) main > .marquee { order: -1; }
+body:has(.persona-radio:not(#v-all):checked) main > .section { order: 10; }
+body:has(.persona-radio:not(#v-all):checked) main > #cv      { order: 15; }
+body:has(.persona-radio:not(#v-all):checked) main > #contact { order: 20; }
+
+body:has(#v-recruiter:checked) #about     { order: 1; }
+body:has(#v-recruiter:checked) #education { order: 2; }
+body:has(#v-recruiter:checked) #cv        { order: 3; }
+
+body:has(#v-client:checked) #projects     { order: 1; }
+body:has(#v-client:checked) #testimonials { order: 2; }
+body:has(#v-client:checked) #assistant    { order: 3; }
+
+body:has(#v-student:checked) #projects  { order: 1; }
+body:has(#v-student:checked) #skills    { order: 2; }
+body:has(#v-student:checked) #education { order: 3; }
+
+/* "Picked for you" tag on the section labels that moved up.
+   The text comes from a variable so the Turkish page can translate it. */
+:root {
+  --picked: "Picked for you";
+}
+
+:root:lang(tr) {
+  --picked: "Sizin için seçildi";
+}
+
+body:has(#v-recruiter:checked) :is(#about, #education) .eyebrow::after,
+body:has(#v-client:checked) :is(#projects, #testimonials, #assistant) .eyebrow::after,
+body:has(#v-student:checked) :is(#projects, #skills, #education) .eyebrow::after {
+  content: var(--picked);
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+}
+
+/* Typing effect. Every letter is its own <span class="ch"> with an index --i.
+   Letter number i appears after  --start + i × --speed  seconds, so the text
+   is "typed" one letter at a time. While a letter is the newest one, a thin
+   caret line is drawn on its right (box-shadow), so the caret follows the text. */
+.typing-title {
+  --start: 0.4s;
+  --speed: 0.045s;
+}
+
+.typing-sub {
+  --start: 2.9s;
+  --speed: 0.012s;
+}
+
+.typing .ch {
+  animation-name: type-in, caret;
+  animation-duration: 0.01s, calc(var(--speed) * 2);
+  animation-fill-mode: both, none;
+  animation-timing-function: linear;
+  animation-delay: calc(var(--start) + var(--i) * var(--speed));
+}
+
+/* Blinking caret that stays at the end of the subtitle once typing is done */
+.typing-sub > span::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 4px;
+  vertical-align: -0.15em;
+  background: #c7d2ff;
+  opacity: 0; /* hidden until the typing has finished */
+  animation: blink 1s 4.7s step-end infinite;
+}
+
+/* Entrance animation: hero elements rise in one after another on page load */
+.fade-up {
+  animation: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.delay-1 { animation-delay: 0.15s; }
+
+/* The buttons and numbers rise in while the subtitle is being typed */
+.after-typing   { animation-delay: 3.2s; }
+.after-typing-2 { animation-delay: 3.6s; }
+
+/* ---------- 7. About (paper card with a floated photo) ----------
+   The photo uses float: left; the text box uses display: flow-root so it
+   becomes its own column beside the photo instead of wrapping under it. */
+.about-card {
+  display: flow-root;  /* contains the floated photo */
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 48px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.profile-photo {
+  float: left;
+  width: 300px;
+  margin: 0 48px 0 0;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(11, 17, 48, 0.25);
+  transition: transform 0.4s;
+}
+
+.profile-photo:hover {
+  transform: rotate(-1.5deg) scale(1.02);
+}
+
+.about-text {
+  display: flow-root;
+}
+
+.about-text h2 {
+  color: var(--night);
+}
+
+.role {
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.about-text .btn {
+  margin: 8px 10px 0 0;
+}
+
+/* ---------- 8. Education and experience (timeline) ---------- */
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 30px;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 34px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/* The glowing dot on the timeline, drawn with a pseudo-element */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -39px;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--coral);
+  box-shadow: 0 0 0 4px rgba(242, 183, 142, 0.25);
+}
+
+.timeline-date {
+  font-size: 0.88rem;
+  color: var(--white-70);
+}
+
+.timeline-item h3 {
+  margin: 4px 0 2px;
+}
+
+.org {
+  color: var(--coral);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.timeline-item p,
+.timeline-item li {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.timeline-item ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* ---------- 9. Skills ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  background: var(--surface-2);
+}
+
+/* Numbered badge (01, 02, 03) on each skill card */
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 18px;
+}
+
+.card p {
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+}
+
+.skill-groups {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 48px;
+}
+
+.skill-groups h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Each skill is a "chip"; float lines them up and lets them wrap */
+.chips li {
+  float: left;
+  margin: 0 8px 8px 0;
+  padding: 5px 14px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: #fff;
+  font-size: 0.88rem;
+  transition: background-color 0.2s;
+}
+
+.chips li:hover {
+  background: var(--surface-2);
+}
+
+.chips::after {
+  content: "";
+  display: block;
+  clear: both;  /* the list wraps around its floated chips */
+}
+
+/* Endless scrolling strip of technologies. The list is written twice and
+   moved left by half its width, so the loop has no visible jump.
+   mask-image fades both edges so items glide in and out softly. */
+.marquee {
+  overflow: hidden;
+  padding: 26px 0;
+  background: var(--night);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: marquee 40s linear infinite;
+}
+
+/* Each technology is a glass pill. margin-right (not gap) keeps both copies
+   of the list exactly the same width, so the -50% loop lines up perfectly. */
+.marquee-track li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 48px;
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Small dot in front of every item */
+.marquee-track li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c7d2ff;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---------- 10. Projects ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* "Show more" without JavaScript: only the first 3 cards are visible.
+   A hidden checkbox sits before the grid; its <label> is the button.
+   When the checkbox is checked, the ~ (sibling) selector shows every card. */
+.more-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.project-card:nth-child(n + 4) {
+  display: none;
+}
+
+.more-toggle:checked ~ .project-grid .project-card {
+  display: flex;
+}
+
+.more-wrap {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.more-button {
+  cursor: pointer;
+}
+
+/* The button text switches between "Show more" and "Show fewer" */
+.less-label {
+  display: none;
+}
+
+.more-toggle:checked ~ .more-wrap .more-label {
+  display: none;
+}
+
+.more-toggle:checked ~ .more-wrap .less-label {
+  display: inline;
+}
+
+/* Keyboard users see a ring on the button when the checkbox has focus */
+.more-toggle:focus-visible ~ .more-wrap .more-button {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* With 3 or fewer projects there is nothing to expand, so the button hides */
+.project-grid:not(:has(.project-card:nth-child(4))) ~ .more-wrap {
+  display: none;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(11, 17, 48, 0.14);
+  transition: transform 0.35s, box-shadow 0.35s;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 26px 50px rgba(11, 17, 48, 0.25);
+}
+
+.project-image {
+  overflow: hidden; /* hides the zoomed part of the image */
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;  /* crop to fill the box without stretching */
+  transition: transform 0.6s;
+}
+
+.project-card:hover img {
+  transform: scale(1.06);
+}
+
+.project-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-body p {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.tags {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+}
+
+.tags li {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--night-soft);
+  background: rgba(58, 85, 201, 0.1);
+  border-radius: 6px;
+  padding: 3px 10px;
+  margin: 0 4px 6px 0;
+}
+
+.read-more {
+  margin-top: auto;  /* pushes the link to the bottom of the card */
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* The arrow slides right when the card is hovered */
+.read-more span {
+  display: inline-block;
+  transition: transform 0.3s;
+}
+
+.project-card:hover .read-more span {
+  transform: translateX(6px);
+}
+
+/* ---------- 11. Testimonials (glass cards on the dark background) ---------- */
+.quote {
+  position: relative;
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.quote:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.stars-rating {
+  color: #e2a400;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.quote blockquote {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-style: italic;
+}
+
+.quote figcaption {
+  font-size: 0.86rem;
+  color: var(--white-70);
+}
+
+/* ---------- 12. AI assistant, CV and contact ---------- */
+.assistant-layout {
+  display: grid;
+  grid-template-columns: 1fr 410px;
+  gap: 56px;
+  align-items: center;
+}
+
+.assistant-frame {
+  width: 100%;
+  height: 560px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--night);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.cv-box {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  color: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 64px 48px;
+  text-align: center;
+}
+
+.cv-box h2,
+.cv-box p,
+.cv-box .btn {
+  position: relative;
+}
+
+.cv-box p {
+  color: var(--white-70);
+  margin-bottom: 28px;
+}
+
+.cv-box .btn {
+  margin: 6px;
+}
+
+/* Contact: a dark night-sky panel with the heading on the left and
+   four glass link cards on the right */
+.contact-panel {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 48px;
+  align-items: center;
+  padding: 64px 56px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.contact-intro,
+.contact-list {
+  position: relative; /* above the stars and the glow */
+  z-index: 1;
+}
+
+.contact-intro .section-intro {
+  margin-bottom: 0;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-link:hover {
+  transform: translateX(8px);
+  background: var(--surface-2);
+  border-color: rgba(199, 210, 255, 0.5);
+}
+
+/* Thin glass ring holding a line icon; it fills with blue when the card
+   is hovered, so the icon reacts together with the rest of the card */
+.contact-icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid rgba(199, 210, 255, 0.35);
+  background: var(--surface-2);
+  color: #c7d2ff;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.contact-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.contact-link:hover .contact-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.contact-text {
+  flex: 1;
+  min-width: 0; /* lets long text (the email) wrap inside the flex row */
+}
+
+.contact-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.contact-text span {
+  font-size: 0.9rem;
+  color: var(--white-70);
+  overflow-wrap: anywhere;
+}
+
+.contact-arrow {
+  font-size: 1.2rem;
+  color: var(--white-70);
+  transition: transform 0.3s, color 0.3s;
+}
+
+.contact-link:hover .contact-arrow {
+  color: #fff;
+  transform: translate(3px, -3px);
+}
+
+/* Round chat button fixed to the corner; it links to #assistant */
+.chat-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px 12px 12px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.2s;
+}
+
+.chat-fab:hover {
+  background: #1f47e0;
+}
+
+/* Tiny terminal prompt ">_" inside the chat button; the underscore blinks
+   like the caret at the end of the hero subtitle */
+.fab-prompt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 24px;
+  margin-right: 10px;
+  border-radius: 5px;
+  background: rgba(11, 17, 48, 0.45);
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.fab-prompt span {
+  animation: blink 1s step-end infinite;
+}
+
+.site-footer {
+  background: var(--night);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--white-70);
+  padding: 32px 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* ---------- 13. Project detail pages ---------- */
+.project-page-body {
+  background: var(--cream);
+}
+
+/* Dark title band at the top of every project page */
+.project-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--night);
+  color: #fff;
+  padding: 130px 0 56px;
+}
+
+.project-hero .container {
+  position: relative; /* above the stars */
+  max-width: 860px;
+}
+
+.project-page {
+  max-width: 860px;
+  padding-top: 8px;
+  padding-bottom: 90px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--coral);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.project-hero h1 {
+  font-size: 2.8rem;
+}
+
+.project-hero .tags li {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.project-hero .role {
+  color: var(--coral);
+}
+
+.project-page h2 {
+  font-size: 1.7rem;
+  margin-top: 44px;
+  color: var(--night);
+}
+
+.project-page figure {
+  margin: 32px 0;
+}
+
+.project-page figure img {
+  border-radius: var(--radius);
+  box-shadow: 0 20px 50px rgba(11, 17, 48, 0.2);
+}
+
+.project-page figcaption {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.project-page li {
+  margin-bottom: 8px;
+}
+
+.project-page .back-link.bottom {
+  color: var(--accent);
+}
+
+/* ---------- 14. Keyframes and scroll-driven animations ---------- */
+@keyframes twinkle {
+  from { opacity: 0.35; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+
+@keyframes flow-down {
+  to { background-position: 0 16px; }
+}
+
+@keyframes flow-right {
+  to { background-position: 12px 0; }
+}
+
+@keyframes node-on {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.3);
+  }
+  100% {
+    transform: translateY(0);
+    border-color: rgba(47, 91, 255, 0.7);
+  }
+}
+
+@keyframes icon-on {
+  to {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+}
+
+@keyframes pop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+
+
+@keyframes type-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes caret {
+  from, to { box-shadow: 3px 0 0 #c7d2ff; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes grow-progress {
+  to { transform: scaleX(1); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(50px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* animation-timeline ties an animation to scrolling instead of time.
+   @supports applies it only in browsers that understand it; the others
+   simply show everything without the effect. */
+@supports (animation-timeline: view()) {
+  #progress {
+    animation: grow-progress linear both;
+    animation-timeline: scroll(root);
+  }
+
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+}
+
+/* Visitors who ask their system for less motion get a still page */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  #progress { display: none; }
+}
+
+/* ---------- 15. Responsive design (tablets and phones) ---------- */
+@media (max-width: 980px) {
+  .nav-links { display: none; } /* the pill keeps logo, language and contact */
+
+  .card-grid,
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .assistant-layout,
+  .contact-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1,
+  .hero-title { font-size: 3.4rem; }
+}
+
+/* On narrow screens the workflow runs top to bottom */
+@media (max-width: 760px) {
+  .wf-dots { display: none; }
+
+  .wf-nodes {
+    flex-direction: column;
+    gap: 28px;
+    padding: 22px 18px 14px;
+  }
+
+  .wf-node {
+    flex-direction: row;
+    gap: 12px;
+    padding: 12px 14px;
+    text-align: left;
+  }
+
+  .wf-result {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .wf-node:not(:last-child)::after {
+    top: 100%;
+    left: 34px;
+    width: 2px;
+    height: 28px;
+    background: repeating-linear-gradient(to bottom, rgba(199, 210, 255, 0.5) 0 8px, transparent 8px 16px);
+    background-size: 2px 16px;
+    animation-name: flow-down;
+  }
+
+  .persona-question p { flex-direction: column; gap: 8px; }
+}
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  h2 { font-size: 2rem; }
+
+  .section { padding: 80px 0; }
+
+  .site-header { top: 10px; }
+  .nav { padding: 6px 6px 6px 10px; }
+  .nav-cta { padding: 7px 12px; }
+
+  .hero { padding: 120px 0 80px; }
+  .hero h1,
+  .hero-title { font-size: 2.5rem; }
+
+
+  .about-card { padding: 24px; }
+
+  /* The photo stops floating and sits above the text */
+  .profile-photo {
+    float: none;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 0 24px;
+  }
+
+  .glass-panel { padding: 24px; }
+
+  .card-grid,
+  .skill-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-panel {
+    padding: 40px 20px;
+    gap: 28px;
+  }
+
+  .contact-link {
+    padding: 14px 16px;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-box { padding: 44px 22px; }
+
+  .assistant-frame { height: 500px; }
+
+  .chat-fab {
+    right: 14px;
+    bottom: 14px;
+    padding: 9px 16px 9px 9px;
+    font-size: 0.9rem;
+  }
+
+  .project-hero h1 { font-size: 2rem; }
+}

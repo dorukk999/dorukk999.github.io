@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot Dedup, Confidence-Scored Review &amp; Enrichment | Dorukhan Turhan</title>
+  <meta name="description" content="A standalone Python microservice fuzzy-matches incoming companies against HubSpot; n8n turns the score into a decision — auto-merge, flag for human review, or create new — instead of blindly automating CRM writes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <span class="active">EN</span>
+          <a href="hubspot-dedup-pipeline-tr.html" lang="tr">TR</a>
+        </div>
+        <a href="../index.html#contact" class="nav-cta">Get in touch</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to all projects</a>
+      <h1 class="fade-up">HubSpot Dedup, Confidence-Scored Review &amp; Enrichment</h1>
+      <p class="role fade-up delay-1">My role: Python Developer &amp; Automation Engineer — CRM Data Integrity &amp; HubSpot API</p>
+      <ul class="tags fade-up delay-1"><li>Python</li><li>FastAPI</li><li>HubSpot API</li><li>n8n</li><li>CRM Automation</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/cover-api-docs.png" alt="HubSpot Dedup, Confidence-Scored Review &amp; Enrichment">
+    </figure>
+    <p>Positioned as a &quot;CRM Automation &amp; n8n Specialist | Python, API, HubSpot&quot; on Upwork, but most of my shipped work leaned on n8n&#x27;s no-code layer — this project exists to prove the other half of that title. It&#x27;s a real, standalone Python microservice (not an n8n Code node) that fuzzy-matches incoming company records against HubSpot, and an n8n workflow that turns those matches into confidence-scored decisions: merge automatically when it&#x27;s obviously the same company, ask a human when it&#x27;s ambiguous, create fresh when it&#x27;s genuinely new. Built and tested against real duplicate data already sitting in a live HubSpot test portal — three separate &quot;Melbourne Dental Clinic&quot; records from earlier testing, exactly the kind of mess this is meant to clean up.</p>
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/pipeline-overview.png" alt="The full pipeline — fetch HubSpot candidates, enrich and score each incoming company, then branch into merge / review / create before logging a batch summary." loading="lazy">
+      <figcaption>The full pipeline — fetch HubSpot candidates, enrich and score each incoming company, then branch into merge / review / create before logging a batch summary.</figcaption>
+    </figure>
+    <h2>A real Python service, not a Code node</h2>
+    <p>The fuzzy-matching logic — comparing company names and domains, scoring how likely two records are the same business — runs in a standalone FastAPI service with its own endpoints (/match/company, /match/contact, /enrich/company), not embedded inside an n8n Code node. n8n owns every authenticated call (HubSpot, Airtable, Gmail); the Python service holds no credentials of its own and only does compute — matching via rapidfuzz, and a lightweight enrichment step that fetches a company&#x27;s own website and pulls its title and description to fill in gaps.</p>
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/match-enrich-segment.png" alt="n8n fetches existing HubSpot companies as match candidates, calls the Python service to enrich the incoming company from its own website, then scores it against every candidate." loading="lazy">
+      <figcaption>n8n fetches existing HubSpot companies as match candidates, calls the Python service to enrich the incoming company from its own website, then scores it against every candidate.</figcaption>
+    </figure>
+    <h2>Confidence-scored decisions, not blind automation</h2>
+    <p>A score above 85% merges straight into the matching HubSpot record — no ambiguity, no risk. Below 50%, it&#x27;s clearly a new company and gets created. Anything in between is the dangerous middle ground where blind automation actually causes damage, so those go to an Airtable review queue instead, with the score and the candidate it almost matched, for a human to approve or reject. Every batch run also fires a summary email — merged / flagged / created counts — so nothing needs manual monitoring to know what happened.</p>
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/confidence-branching-segment.png" alt="The three-way decision: auto-merge, human review queue, or create new — each branch reachable independently from a single scoring step." loading="lazy">
+      <figcaption>The three-way decision: auto-merge, human review queue, or create new — each branch reachable independently from a single scoring step.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/projects/hubspot-dedup-pipeline/summary-email.jpg" alt="The real batch summary email from this exact test run — one merge, one review flag, one new company, sent automatically via n8n&#x27;s Gmail integration." loading="lazy">
+      <figcaption>The real batch summary email from this exact test run — one merge, one review flag, one new company, sent automatically via n8n&#x27;s Gmail integration.</figcaption>
+    </figure>
+    <h2>Tech stack</h2>
+    <ul>
+      <li>Python — FastAPI microservice, rapidfuzz for matching, BeautifulSoup for lightweight website enrichment</li>
+      <li>Automation — n8n (self-hosted via Docker), built and tested through n8n&#x27;s REST API, not just the visual editor</li>
+      <li>HubSpot API — real CRM reads/writes (GET/PATCH/POST on the Companies object) authenticated via a HubSpot Private App token</li>
+      <li>Review queue — Airtable, holding medium-confidence matches for human approval</li>
+    </ul>
+    <h2>What it demonstrates</h2>
+    <ul>
+      <li>Splitting compute from orchestration — a real backend service doing the matching, n8n doing the auth and data flow, each doing what it&#x27;s good at</li>
+      <li>Confidence-scored automation instead of all-or-nothing — the pattern CRM-hygiene clients actually want, not blind merging</li>
+      <li>Direct HubSpot REST API integration, not just a no-code connector — comfortable working below the abstraction when it&#x27;s the more reliable path</li>
+      <li>Same API-driven build-and-verify workflow as the rest of this portfolio — built and tested via n8n&#x27;s REST API and real execution logs, not just clicked together in the editor</li>
+    </ul>
+    <p><a href="../index.html#projects" class="back-link bottom">← Back to all projects</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

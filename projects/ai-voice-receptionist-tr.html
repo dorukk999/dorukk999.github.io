@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Sesli Resepsiyonist — Vapi, n8n Otomasyonu, Supabase | Dorukhan Turhan</title>
+  <meta name="description" content="Bir diş kliniğinin telefonlarına cevap veren, konuşarak randevu alıp erteleyen ve personel paneline canlı olarak senkronize olan bir AI sesli ajan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../tr.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../tr.html#projects">Tüm projeler</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <a href="ai-voice-receptionist.html" lang="en">EN</a>
+          <span class="active">TR</span>
+        </div>
+        <a href="../tr.html#contact" class="nav-cta">İletişime geç</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../tr.html#projects" class="back-link">← Tüm projelere dön</a>
+      <h1 class="fade-up">AI Sesli Resepsiyonist — Vapi, n8n Otomasyonu, Supabase</h1>
+      <p class="role fade-up delay-1">Rolüm: Full-Stack Geliştirici — AI Sesli Ajanlar, İş Akışı Otomasyonu ve Backend Mimarisi</p>
+      <ul class="tags fade-up delay-1"><li>Supabase</li><li>AI Ajan Geliştirme</li><li>Otomatik İş Akışı</li><li>n8n</li><li>AI Ses Üretimi</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/voice-receptionist/cover-architecture.jpg" alt="AI Sesli Resepsiyonist — Vapi, n8n Otomasyonu, Supabase">
+    </figure>
+    <p>Bir AI sesli ajan kliniğin telefonlarını cevaplıyor, doğal bir konuşma akışıyla randevu alıp erteliyor ve her sonucu doğrudan bir Postgres veritabanına yazıyor. Çağrıdan veritabanına giden mantığı n8n yönetiyor; Supabase kimlik doğrulama, gerçek zamanlı senkronizasyon ve row-level security&#x27;yi üstleniyor; bir React paneli sayesinde personel randevuların çağrı çağrı canlı olarak düştüğünü izleyebiliyor.</p>
+    <h2>Nasıl çalışıyor</h2>
+    <ol>
+      <li>Hasta arıyor — hesap yok, uygulama yok, sadece kliniğin telefon numarası.</li>
+      <li>Konuşmayı Vapi yönetiyor (speech-to-text → LLM → text-to-speech), bu klinik için özel olarak ayarlanmış yapılandırılmış bir system prompt&#x27;u takip ederek: hastanın ne istediğini öğreniyor, doktorları listeliyor, gerçek uygunluğu kontrol ediyor, detayları sesli olarak teyit ediyor — hepsi doğal bir Türkçeyle, arayan kişiye hiçbir fonksiyon adı veya teknik terim sızdırmadan.</li>
+      <li>Aksiyonları n8n çalıştırıyor. Asistanın sahip olduğu her yetenek — get_doctors, get_available_slots, check_patient, book_appointment, cancel_appointment — kendi webhook tetiklemeli n8n workflow&#x27;una bağlı özel bir tool; iş mantığı da orada yaşıyor: bir slotu onaylamadan önce hâlâ boş olduğunu tekrar kontrol etmek, arayan kişiyi telefon numarasından mevcut bir hastayla eşleştirmek ya da anında yeni bir kayıt oluşturmak, randevuyu yazmak, çağrıyı loglamak.</li>
+      <li>Supabase, tek doğruluk kaynağı — hastalar, doktorlar, programlar, randevular, çağrı logları ve bir hatırlatma kuyruğu için Postgres tabloları; her okuma/yazma işlemi row-level security ile role göre sınırlandırılıyor.</li>
+      <li>Panel kendini Supabase Realtime üzerinden güncelliyor — bir çağrı biter bitmez yeni satır admin&#x27;in ekranında beliriyor, sayfayı yenilemeye gerek kalmıyor.</li>
+      <li>Hatırlatmalar döngüyü kapatıyor: zamanlanmış bir workflow, yaklaşan randevulardan önce Vapi&#x27;ye giden aramalar yaptırıyor.</li>
+    </ol>
+    <figure>
+      <img src="../images/projects/voice-receptionist/automation-flow.jpg" alt="Otomasyonun içi — her randevu çağrısında n8n workflow&#x27;unun yaptıkları." loading="lazy">
+      <figcaption>Otomasyonun içi — her randevu çağrısında n8n workflow&#x27;unun yaptıkları.</figcaption>
+    </figure>
+    <h2>Teknoloji yığını</h2>
+    <ul>
+      <li>Sesli AI — Vapi (LLM tabanlı konuşma ajanı, function calling, Türkçe prompt engineering)</li>
+      <li>Otomasyon — n8n (Docker üzerinde self-hosted), webhook tetiklemeli workflow&#x27;lar, geliştirme için ngrok üzerinden dışarı açıldı</li>
+      <li>Backend — Supabase: Postgres, Auth, Row-Level Security, Realtime</li>
+      <li>Frontend — React 18, TypeScript, Vite, Tailwind CSS, React Router — role bazlı üç ayrı portal (admin, doktor, hasta), iki dilli arayüz (TR/EN)</li>
+      <li>Deployment — statik frontend build&#x27;i, şema ve seed data için versiyonlanmış SQL migration&#x27;ları</li>
+    </ul>
+    <figure>
+      <img src="../images/projects/voice-receptionist/vapi-prompt.jpg" alt="Asistanın system prompt&#x27;u — her çağrıda takip ettiği konuşma akışı." loading="lazy">
+      <figcaption>Asistanın system prompt&#x27;u — her çağrıda takip ettiği konuşma akışı.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/projects/voice-receptionist/vapi-tools.jpg" alt="Vapi asistanına bağlanan özel tool&#x27;lar — her biri kendi n8n workflow&#x27;una bağlı." loading="lazy">
+      <figcaption>Vapi asistanına bağlanan özel tool&#x27;lar — her biri kendi n8n workflow&#x27;una bağlı.</figcaption>
+    </figure>
+    <h2>Neyi kanıtlıyor</h2>
+    <ul>
+      <li>Bir LLM&#x27;in sadece sohbet etmediği, gerçek kararlar aldığı (uygunluk, kimlik, çakışmalar) voice-first bir UX tasarlamak</li>
+      <li>No-code bir otomasyon katmanını veri bütünlüğünü kaybetmeden ilişkisel bir şemaya bağlamak — race condition&#x27;lar ve mükerrer hasta kayıtları açıkça ele alınıyor</li>
+      <li>Tek bir admin flag&#x27;i yerine gerçek dünya rolleri etrafında modellenmiş row-level security</li>
+      <li>Veritabanını aynı anda iki farklı istemci için tek doğruluk kaynağı olarak ele alan bir frontend: web&#x27;de bir insan, telefonda bir AI</li>
+      <li>Uçtan uca stack&#x27;in tamamına sahiplik — ses, otomasyon, veritabanı, arayüz</li>
+    </ul>
+    <figure>
+      <img src="../images/projects/voice-receptionist/dashboard-appointments.jpg" alt="Admin paneli — çağrılar tamamlandıkça randevular canlı olarak düşüyor." loading="lazy">
+      <figcaption>Admin paneli — çağrılar tamamlandıkça randevular canlı olarak düşüyor.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/projects/voice-receptionist/dashboard-doctors.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <figure>
+      <img src="../images/projects/voice-receptionist/dashboard-schedule.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <p><a href="../tr.html#projects" class="back-link bottom">← Tüm projelere dön</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

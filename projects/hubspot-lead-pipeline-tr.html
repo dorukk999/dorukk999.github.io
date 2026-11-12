@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otomatik HubSpot CRM Lead Üretimi ve Deduplication Pipeline&#x27;ı | Dorukhan Turhan</title>
+  <meta name="description" content="Lead&#x27;leri webhook üzerinden yakalayan, HubSpot&#x27;a karşı domain bazında deduplicate eden, CRM kaydını oluşturan ya da güncelleyen ve gerçek zamanlı bir e-posta uyarısı gönderen bir Python + n8n pipeline&#x27;ı.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../tr.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../tr.html#projects">Tüm projeler</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <a href="hubspot-lead-pipeline.html" lang="en">EN</a>
+          <span class="active">TR</span>
+        </div>
+        <a href="../tr.html#contact" class="nav-cta">İletişime geç</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../tr.html#projects" class="back-link">← Tüm projelere dön</a>
+      <h1 class="fade-up">Otomatik HubSpot CRM Lead Üretimi ve Deduplication Pipeline&#x27;ı</h1>
+      <p class="role fade-up delay-1">Rolüm: Python Geliştirici ve API Otomasyon Uzmanı</p>
+      <ul class="tags fade-up delay-1"><li>API Entegrasyonu</li><li>RESTful API</li><li>n8n</li><li>HubSpot</li><li>CRM Otomasyonu</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/hubspot-lead-pipeline/cover-workflow.jpg" alt="Otomatik HubSpot CRM Lead Üretimi ve Deduplication Pipeline&#x27;ı">
+    </figure>
+    <p>Hedef: CRM lead girişini otomatikleştirmek ve mükerrer veriyi ortadan kaldırmak. Çözüm: Python, n8n ve HubSpot API kullanarak otomatik bir pipeline kurdum. Lead&#x27;leri webhook&#x27;lar üzerinden yakalıyor, mükerrer kayıtları önlemek için domain&#x27;leri akıllıca kontrol ediyor, kayıtları oluşturuyor ya da güncelliyor ve gerçek zamanlı e-posta uyarıları gönderiyor. Değer: Manuel girişten haftada 10+ saat tasarruf sağlıyor, %100 temiz bir CRM veritabanı garantiliyor ve satış ekiplerinin anında takip yapmasını sağlıyor.</p>
+    <h2>Perde Arkası: Workflow Mimarisi</h2>
+    <p>Ekteki n8n workflow görseli, otomasyonun temel mantığını ve yönlendirmesini gösteriyor. Verinin nasıl işlendiğine dair adım adım bir döküm:</p>
+    <ul>
+      <li>Veri Alımı ve Biçimlendirme (Webhook ve Code in JavaScript): Sistem, Python script&#x27;inden gönderilen ham JSON payload&#x27;ını yakalıyor. Ardından JavaScript node&#x27;u, domain string&#x27;ini temizleyip normalize ederek API sorgularının tam isabetli olmasını sağlıyor.</li>
+      <li>Deduplication Motoru (Search ve If): Workflow, temizlenmiş domain&#x27;i kullanarak HubSpot veritabanını gerçek zamanlı olarak sorguluyor. If node&#x27;u, bir companyId dönüp dönmediğine göre bir sonraki adıma karar veren akıllı bir yönlendirici gibi çalışıyor.</li>
+      <li>Yeni Lead Oluşturma (Üst Branch): Veritabanı boş dönerse (yani şirket mevcut değilse), akış yeni bir CRM kaydı oluşturmak için Create a company node&#x27;una yönlendiriliyor. Ardından Gmail node&#x27;u üzerinden özelleştirilmiş bir &quot;New Lead Captured&quot; e-postası tetikleniyor.</li>
+      <li>Akıllı Güncelleme (Alt Branch): Şirket sistemde zaten varsa, akış Update a company node&#x27;una yönleniyor. İkincil bir JavaScript node&#x27;u, güncellenmesi gereken belirli alanları hazırlayarak mevcut geçmiş verinin üzerine yazılmamasını sağlıyor. Son olarak ayrı bir Gmail node&#x27;u ekibe özel bir &quot;Lead Updated&quot; uyarısı gönderiyor.</li>
+    </ul>
+    <h2>Çalıştığının Kanıtı: Canlı CRM Entegrasyonu</h2>
+    <p>Ekteki ekran görüntüsü, otomatik pipeline&#x27;ın çalışırken ürettiği nihai, başarılı çıktıyı gösteriyor. Anlık Lead Üretimi: HubSpot arama arayüzünde görüldüğü gibi, bir test payload&#x27;ı (&quot;Istanbul Dental Clinic&quot;) başarıyla alınmış, işlenmiş ve doğrudan canlı CRM veritabanına enjekte edilmiş. Sıfır Manuel Giriş: bu kayıt tamamen Python&#x27;dan n8n&#x27;e API entegrasyonu üzerinden oluşturuldu — sistemin dış veriyi sorunsuzca yakalayıp doğrulayarak gerçek zamanlı olarak aksiyona hazır CRM kayıtlarına dönüştürebildiğini kanıtlıyor. Satışa Hazır: veri sisteme düştüğü an anında aranabilir hale geliyor ve satış ekibinin takip etmesi için hazır oluyor — manuel veri girişinin geleneksel gecikme süresi ortadan kalkıyor.</p>
+    <figure>
+      <img src="../images/projects/hubspot-lead-pipeline/hubspot-search.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <h2>Otomatik Gerçek Zamanlı Uyarılar ve Raporlama</h2>
+    <p>Pipeline&#x27;ın son aşaması, ilgili ekip üyelerinin veritabanını manuel olarak izlemek zorunda kalmadan her CRM aktivitesinden anında haberdar olmasını sağlıyor. Bu ekran görüntüsü, başarılı bir çalıştırma sonrası tetiklenen otomatik e-posta uyarısını gösteriyor. Dinamik Veri Enjeksiyonu: n8n Gmail node&#x27;u, ilk Python webhook payload&#x27;ından belirli değişkenleri (Şirket Adı, Domain, Telefon Numarası ve Timestamp) dinamik olarak çıkarıp ayrıştırıyor ve bunları temiz, biçimlendirilmiş bir e-posta şablonuna enjekte ediyor. Döngüyü Kapatmak: satış veya admin ekiplerine anlık bildirimler göndererek sistem, lead takibinde sıfır gecikme sağlıyor — hiçbir lead gözden kaçmıyor. Bağlama Duyarlı Mesajlaşma: workflow, koşullu yönlendirme mantığına göre özelleştirilmiş e-posta uyarıları gönderecek şekilde tasarlanmış; ekibi yepyeni bir lead&#x27;in mi oluşturulduğu yoksa mevcut bir şirket profilinin mi güncellendiği konusunda bilgilendiriyor.</p>
+    <figure>
+      <img src="../images/projects/hubspot-lead-pipeline/email-alert.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <h2>Tetikleyici: Python Veri Alımı ve Webhook&#x27;lar</h2>
+    <p>Bu kod parçası, otomasyon pipeline&#x27;ının tamamının başlangıç noktasını gösteriyor. Özel bir Google Maps scraper&#x27;ından çıkarılan lead&#x27;ler gibi dış verinin nasıl yapılandırılıp n8n workflow&#x27;una güvenli şekilde iletildiğini gösteriyor. JSON Payload Yapılandırması: Python script&#x27;i, ham çıkarılan veriyi otomatik olarak temel lead detaylarını (Şirket Adı, Website, Telefon ve Kaynak) içeren temiz, standart bir JSON dictionary&#x27;e biçimlendiriyor. Webhook Entegrasyonu: script, requests kütüphanesini kullanarak veri payload&#x27;ını bir HTTP POST isteğiyle programatik olarak özel bir n8n webhook URL&#x27;sine gönderiyor — scraping aracı ile CRM arasında köprü görevi görüyor. Ölçeklenebilir Mimari: sistem bir webhook üzerinden tetiklendiği için son derece ölçeklenebilir — workflow, ister bir web scraper, ister bir iletişim formu, ister başka bir üçüncü parti API olsun, temel otomasyon mantığını değiştirmeye gerek kalmadan birden çok kaynaktan gelen lead verisini kolayca kabul edebiliyor.</p>
+    <figure>
+      <img src="../images/projects/hubspot-lead-pipeline/python-webhook-code.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <p><a href="../tr.html#projects" class="back-link bottom">← Tüm projelere dön</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

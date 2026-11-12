@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon-Style Project Status Emails, Triggered by Your CRM | Dorukhan Turhan</title>
+  <meta name="description" content="A CRM status change (contract signed, installation scheduled, job complete) automatically triggers a branded, checkpoint-tracker email — the &quot;where&#x27;s my order&quot; experience, applied to a service business instead of a package.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <span class="active">EN</span>
+          <a href="crm-project-status-emails-tr.html" lang="tr">TR</a>
+        </div>
+        <a href="../index.html#contact" class="nav-cta">Get in touch</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to all projects</a>
+      <h1 class="fade-up">Amazon-Style Project Status Emails, Triggered by Your CRM</h1>
+      <p class="role fade-up delay-1">My role: Automation Engineer — n8n, Transactional Email Design &amp; CRM Integration</p>
+      <ul class="tags fade-up delay-1"><li>n8n</li><li>Email Automation</li><li>CRM Automation</li><li>HTML Email Design</li><li>Airtable</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/cover-email-contract-signed.png" alt="Amazon-Style Project Status Emails, Triggered by Your CRM">
+    </figure>
+    <p>Built after seeing the same request come up across several real automation job listings: a service business (home remodeling, in the brief that prompted this) wants customers to always know where their project stands, the way Amazon&#x27;s order-tracking emails do — without anyone on the team manually writing status updates. This demo is deliberately genericized rather than tied to one specific CRM: the branding, copy, and CRM field names shown here (&quot;Bright Bath Remodels&quot;) are placeholders — every color, logo, checkpoint label, and trigger condition is meant to be swapped per client, not hard-coded.</p>
+    <h2>A branded status-tracker email, not a wall of text</h2>
+    <p>Each email shares one HTML template — table-based, inline-styled, so it renders consistently in Gmail and Outlook alike — with a horizontal checkpoint tracker (✓ done, ● current, ○ upcoming) that updates automatically based on which stage the customer is in. The same template renders four different moments in the journey; only the headline, body copy, and tracker position change.</p>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/email-installation-scheduled.png" alt="A real email rendered in Gmail, mid-journey — the tracker shows exactly what&#x27;s done and what&#x27;s next, no guessing for the customer." loading="lazy">
+      <figcaption>A real email rendered in Gmail, mid-journey — the tracker shows exactly what&#x27;s done and what&#x27;s next, no guessing for the customer.</figcaption>
+    </figure>
+    <h2>The contract, attached automatically</h2>
+    <p>The contract-signed email carries a PDF attachment, fetched dynamically at send time rather than pre-loaded per customer. In this demo the PDF is a generated sample; in a real deployment it would be swapped for whatever the client&#x27;s CRM already produces — a signed contract from their e-signature tool, a scope-of-work export, or similar — the workflow only needs a URL to fetch from, not a specific document source.</p>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/sample-contract.jpg" alt="The attached contract — a placeholder document here, swapped for the client&#x27;s real contract export in production." loading="lazy">
+      <figcaption>The attached contract — a placeholder document here, swapped for the client&#x27;s real contract export in production.</figcaption>
+    </figure>
+    <h2>n8n workflow: one event in, the right email out</h2>
+    <p>A single webhook accepts any of the four CRM events, upserts the customer&#x27;s journey record in Airtable (matched on email, so a repeat event updates the same customer instead of duplicating them), and branches only for the one case that needs a file attached. Swapping the trigger from a generic webhook to a specific CRM&#x27;s real event stream is a matter of pointing it at that CRM&#x27;s API — the rendering and sending logic underneath doesn&#x27;t change.</p>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/workflow-a-full.png" alt="The full &quot;Project Journey Emails&quot; workflow — parse the event, render the branded email, upsert the CRM record, attach a file only when needed, send." loading="lazy">
+      <figcaption>The full &quot;Project Journey Emails&quot; workflow — parse the event, render the branded email, upsert the CRM record, attach a file only when needed, send.</figcaption>
+    </figure>
+    <h2>A reminder that sends itself, and a close that asks for the review</h2>
+    <p>A separate scheduled workflow checks daily for installations happening tomorrow and fires the reminder automatically — no one has to remember. The final email in the journey closes the loop with a review-request button, timed for the moment satisfaction is highest: right after the work is done.</p>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/email-project-completed.png" alt="The closing email — completed checkpoint, plus a review-request button timed for the moment satisfaction peaks." loading="lazy">
+      <figcaption>The closing email — completed checkpoint, plus a review-request button timed for the moment satisfaction peaks.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/projects/crm-project-status-emails/workflow-b-full.png" alt="The &quot;Installation Reminder Scheduler&quot; — runs daily, finds tomorrow&#x27;s installations, sends the reminder, marks it sent so it never double-fires." loading="lazy">
+      <figcaption>The &quot;Installation Reminder Scheduler&quot; — runs daily, finds tomorrow&#x27;s installations, sends the reminder, marks it sent so it never double-fires.</figcaption>
+    </figure>
+    <h2>Tech stack</h2>
+    <ul>
+      <li>Automation — n8n (self-hosted via Docker), webhook + scheduled workflows, built and tested through n8n&#x27;s REST API</li>
+      <li>Email — hand-built table-based HTML template (cross-client compatible), sent via Gmail for this demo; production volume would move to a dedicated transactional provider (e.g. SendGrid, Postmark) for deliverability and sender reputation — the template and trigger logic stay identical either way</li>
+      <li>CRM substitute — Airtable, tracking each customer&#x27;s current stage, installation date, and reminder status</li>
+      <li>Documents — dynamic PDF attachment fetched at send time, swappable for any client&#x27;s real contract source</li>
+    </ul>
+    <h2>What it demonstrates</h2>
+    <ul>
+      <li>Designing for reuse, not one client — branding, copy, and trigger conditions are all swap points, not hard-coded assumptions</li>
+      <li>Thinking past the demo to production — knowing where a personal inbox stops being the right tool and a transactional email service starts</li>
+      <li>Cross-client-compatible HTML email design (table layouts, inline CSS) — a skill most automation-only builds skip entirely</li>
+      <li>Event-driven CRM integration that treats the specific CRM as a swappable trigger source, not the architecture itself</li>
+    </ul>
+    <p><a href="../index.html#projects" class="back-link bottom">← Back to all projects</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

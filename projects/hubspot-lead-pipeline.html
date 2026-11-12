@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated HubSpot CRM Lead Generation &amp; Deduplication Pipeline | Dorukhan Turhan</title>
+  <meta name="description" content="A Python + n8n pipeline that captures leads via webhook, deduplicates them against HubSpot by domain, creates or updates the CRM record, and sends a real-time email alert.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <span class="active">EN</span>
+          <a href="hubspot-lead-pipeline-tr.html" lang="tr">TR</a>
+        </div>
+        <a href="../index.html#contact" class="nav-cta">Get in touch</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to all projects</a>
+      <h1 class="fade-up">Automated HubSpot CRM Lead Generation &amp; Deduplication Pipeline</h1>
+      <p class="role fade-up delay-1">My role: Python Developer &amp; API Automation Specialist</p>
+      <ul class="tags fade-up delay-1"><li>API Integration</li><li>RESTful API</li><li>n8n</li><li>HubSpot</li><li>CRM Automation</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/hubspot-lead-pipeline/cover-workflow.jpg" alt="Automated HubSpot CRM Lead Generation &amp; Deduplication Pipeline">
+    </figure>
+    <p>Goal: Automate CRM lead entry and eliminate duplicate data. Solution: I built an automated pipeline using Python, n8n, and HubSpot API. It captures leads via webhooks, intelligently checks domains to prevent duplicates, creates or updates records, and sends real-time email alerts. Value: Saves 10+ hours/week on manual entry, ensures a 100% clean CRM database, and enables instant sales follow-ups.</p>
+    <h2>Behind the Scenes: Workflow Architecture</h2>
+    <p>The attached n8n workflow image illustrates the core logic and routing of the automation. Here is a step-by-step breakdown of how the data is processed:</p>
+    <ul>
+      <li>Data Ingestion &amp; Formatting (Webhook &amp; Code in JavaScript): The system catches the raw JSON payload sent from the Python script. The JavaScript node is then used to clean and normalize the domain string, ensuring precise API queries.</li>
+      <li>Deduplication Engine (Search &amp; If): The workflow queries the HubSpot database in real-time using the cleaned domain. The If node acts as a smart router, deciding the next step based on whether a companyId is returned.</li>
+      <li>New Lead Creation (Top Branch): If the database returns empty (meaning the company doesn&#x27;t exist), the flow is routed to the Create a company node to generate a fresh CRM record. It then triggers a customized &quot;New Lead Captured&quot; email via the Gmail node.</li>
+      <li>Smart Updating (Bottom Branch): If the company is already in the system, it routes to the Update a company node. A secondary JavaScript node prepares the specific fields that need updating, ensuring existing historical data isn&#x27;t overwritten. Finally, a separate Gmail node sends a specific &quot;Lead Updated&quot; alert to the team.</li>
+    </ul>
+    <h2>Proof of Execution: Live CRM Integration</h2>
+    <p>The attached screenshot demonstrates the final, successful output of the automated pipeline in action. Instant Lead Generation: as seen in the HubSpot search interface, a test payload (&quot;Istanbul Dental Clinic&quot;) has been successfully received, processed, and injected directly into the live CRM database. Zero Manual Entry: this record was created entirely via the Python-to-n8n API integration — it proves the system can seamlessly catch external data, validate it, and translate it into actionable CRM records in real-time. Ready for Sales: the moment the data hits the system, it becomes instantly searchable and ready for the sales team to follow up, eliminating the traditional lag time of manual data entry.</p>
+    <figure>
+      <img src="../images/projects/hubspot-lead-pipeline/hubspot-search.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <h2>Automated Real-Time Alerts &amp; Reporting</h2>
+    <p>The final stage of the pipeline ensures that the relevant team members are immediately informed of any CRM activity without having to manually monitor the database. This screenshot displays the automated email alert triggered upon successful execution. Dynamic Data Injection: the n8n Gmail node dynamically extracts and parses specific variables (Company Name, Domain, Phone Number, and Timestamp) directly from the initial Python webhook payload, injecting them into a clean, formatted email template. Closing the Loop: by delivering instant notifications to the sales or admin teams, the system ensures zero delay in lead follow-ups — no lead falls through the cracks. Context-Aware Messaging: the workflow is designed to send customized email alerts based on the conditional routing logic, notifying the team whether a brand-new lead was successfully generated or an existing company profile was updated.</p>
+    <figure>
+      <img src="../images/projects/hubspot-lead-pipeline/email-alert.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <h2>The Trigger: Python Data Ingestion &amp; Webhooks</h2>
+    <p>This code snippet illustrates the starting point of the entire automation pipeline. It demonstrates how external data — such as leads extracted from a custom Google Maps scraper — is structured and securely transmitted to the n8n workflow. JSON Payload Structuring: the Python script automatically formats the raw extracted data into a clean, standardized JSON dictionary containing essential lead details (Company Name, Website, Phone, and Source). Webhook Integration: utilizing the requests library, the script programmatically pushes the data payload to a dedicated n8n webhook URL via an HTTP POST request, acting as the bridge between the scraping tool and the CRM. Scalable Architecture: because the system is triggered via a webhook, it is highly scalable — the workflow can easily accept incoming lead data from multiple sources, whether it&#x27;s a web scraper, a contact form, or another third-party API, without needing to alter the core automation logic.</p>
+    <figure>
+      <img src="../images/projects/hubspot-lead-pipeline/python-webhook-code.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <p><a href="../index.html#projects" class="back-link bottom">← Back to all projects</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

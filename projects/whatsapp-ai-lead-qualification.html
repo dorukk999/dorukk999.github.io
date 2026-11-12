@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp AI Lead Qualification &amp; CRM Sync | Dorukhan Turhan</title>
+  <meta name="description" content="A self-built demo of an AI-driven WhatsApp lead-qualification system: it reads images senders attach, extracts structured lead data straight into a CRM, and sends follow-ups that adapt to whatever information is still missing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <span class="active">EN</span>
+          <a href="whatsapp-ai-lead-qualification-tr.html" lang="tr">TR</a>
+        </div>
+        <a href="../index.html#contact" class="nav-cta">Get in touch</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to all projects</a>
+      <h1 class="fade-up">WhatsApp AI Lead Qualification &amp; CRM Sync</h1>
+      <p class="role fade-up delay-1">My role: Automation Engineer — n8n, AI Conversation Design &amp; CRM Integration</p>
+      <ul class="tags fade-up delay-1"><li>n8n</li><li>CRM Automation</li><li>AI Agent Development</li><li>Airtable</li><li>Lead Qualification</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/chat-conversation.png" alt="WhatsApp AI Lead Qualification &amp; CRM Sync">
+    </figure>
+    <p>Built this after noticing a recurring pattern in real automation job listings: businesses running WhatsApp-based lead capture that handles basic conversation fine, but breaks down on three specific things — reading images senders attach, turning the AI&#x27;s understanding into structured CRM fields instead of a wall of chat text, and sending follow-ups that actually know what&#x27;s still missing rather than repeating the same nudge. I built a self-contained version of that system end to end — real n8n workflows, a real Airtable CRM, a real Gemini-powered conversation — with only the WhatsApp channel itself simulated, since getting Meta Business API approval isn&#x27;t something a demo needs.</p>
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/pipeline-overview.png" alt="The complete &quot;Inbound Message Handler&quot; pipeline in n8n, start to finish — webhook in, branch on image vs. text, merge, look up the lead, call Gemini, write back to the CRM, log both sides of the conversation, respond." loading="lazy">
+      <figcaption>The complete &quot;Inbound Message Handler&quot; pipeline in n8n, start to finish — webhook in, branch on image vs. text, merge, look up the lead, call Gemini, write back to the CRM, log both sides of the conversation, respond.</figcaption>
+    </figure>
+    <h2>Reading images, not just storing them</h2>
+    <p>When a lead sends a photo — a reference sample, packaging, a product photo — the workflow branches, sends the image straight to Gemini&#x27;s vision model for a short description, then folds that description into the same context the conversational AI uses to reply. The image isn&#x27;t just an attachment sitting in a field; it directly shapes what the AI says next and what gets written to the CRM.</p>
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/image-handling-branch.png" alt="The image-handling branch — text and image messages take different paths through Gemini, then merge back together before the CRM lookup." loading="lazy">
+      <figcaption>The image-handling branch — text and image messages take different paths through Gemini, then merge back together before the CRM lookup.</figcaption>
+    </figure>
+    <h2>Structured extraction, not a wall of text</h2>
+    <p>The AI doesn&#x27;t just chat — every reply is generated as structured JSON (name, product interest, quantity, reference links, conversation stage) via Gemini&#x27;s response schema, so there&#x27;s nothing to regex out of a paragraph. Those fields upsert straight into the Leads table, matched on the visitor&#x27;s WhatsApp ID, so a returning contact updates their existing record instead of creating a duplicate. Every inbound and outbound message is also logged to a linked Messages table, giving a full audit trail alongside the structured snapshot.</p>
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/crm-writeback.png" alt="From lookup to CRM write-back — Gemini&#x27;s structured reply gets upserted into the Lead record and logged to the Messages table." loading="lazy">
+      <figcaption>From lookup to CRM write-back — Gemini&#x27;s structured reply gets upserted into the Lead record and logged to the Messages table.</figcaption>
+    </figure>
+    <h2>Follow-ups that know what&#x27;s missing</h2>
+    <p>A separate scheduled workflow checks for leads that have gone quiet, and instead of firing the same generic nudge, it looks at which specific field is still empty — product interest, quantity, or reference links — and sends a follow-up written for that gap specifically. After three attempts with no response, the lead is marked Stalled instead of nagged indefinitely.</p>
+    <figure>
+      <img src="../images/projects/whatsapp-ai-lead-qualification/followup-scheduler.png" alt="The Follow-up Scheduler — finds stale leads, decides the message based on what&#x27;s missing, logs it, and updates the lead&#x27;s follow-up count." loading="lazy">
+      <figcaption>The Follow-up Scheduler — finds stale leads, decides the message based on what&#x27;s missing, logs it, and updates the lead&#x27;s follow-up count.</figcaption>
+    </figure>
+    <h2>Tech stack</h2>
+    <ul>
+      <li>Automation — n8n (self-hosted via Docker), workflows built and tested through n8n&#x27;s REST API</li>
+      <li>AI — Google Gemini (conversation + vision), structured JSON output via response schema instead of free-text parsing</li>
+      <li>CRM — Airtable (Leads + Messages tables, linked records, upsert-on-match)</li>
+      <li>Channel simulation — a small WhatsApp-style chat UI (vanilla HTML/JS) sending real WhatsApp Cloud API-shaped webhook payloads</li>
+    </ul>
+    <h2>What it demonstrates</h2>
+    <ul>
+      <li>Designing multi-branch n8n workflows (image vs. text, merge points, conditional follow-up logic) that stay debuggable</li>
+      <li>Using an LLM&#x27;s structured-output mode to write directly into a CRM schema, not scraping a chat transcript after the fact</li>
+      <li>Treating a CRM field, not just a chat window, as the AI&#x27;s memory — a returning lead&#x27;s known info feeds back into the next prompt</li>
+      <li>Building and testing automation end-to-end via API (workflow creation, execution logs, live webhook calls) rather than only clicking through an editor</li>
+    </ul>
+    <p><a href="../index.html#projects" class="back-link bottom">← Back to all projects</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>

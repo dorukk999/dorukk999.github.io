@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Voice Receptionist — Vapi, n8n Automation, Supabase | Dorukhan Turhan</title>
+  <meta name="description" content="An AI voice agent that answers a dental clinic&#x27;s phone, books and reschedules appointments by conversation, and syncs live to a staff dashboard.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="project-page-body">
+
+  <div id="progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="brand"><span class="brand-mark">DT</span>Dorukhan</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-toggle">
+          <span class="active">EN</span>
+          <a href="ai-voice-receptionist-tr.html" lang="tr">TR</a>
+        </div>
+        <a href="../index.html#contact" class="nav-cta">Get in touch</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="project-hero">
+    <div class="stars"></div>
+    <div class="container">
+      <a href="../index.html#projects" class="back-link">← Back to all projects</a>
+      <h1 class="fade-up">AI Voice Receptionist — Vapi, n8n Automation, Supabase</h1>
+      <p class="role fade-up delay-1">My role: Full-Stack Developer — AI Voice Agents, Workflow Automation &amp; Backend Architecture</p>
+      <ul class="tags fade-up delay-1"><li>Supabase</li><li>AI Agent Development</li><li>Automated Workflow</li><li>n8n</li><li>AI Audio Generation</li></ul>
+    </div>
+  </section>
+
+  <main class="container project-page">
+    <figure>
+      <img src="../images/projects/voice-receptionist/cover-architecture.jpg" alt="AI Voice Receptionist — Vapi, n8n Automation, Supabase">
+    </figure>
+    <p>An AI voice agent answers the clinic&#x27;s phone, books and reschedules appointments through natural conversation, and writes every outcome straight into a Postgres database. n8n orchestrates the call-to-database logic; Supabase handles auth, real-time sync and row-level security; a React dashboard lets staff watch bookings appear live, call by call.</p>
+    <h2>How it works</h2>
+    <ol>
+      <li>Patient calls in — no account, no app, just the clinic&#x27;s phone number.</li>
+      <li>Vapi runs the conversation (speech-to-text → LLM → text-to-speech), following a structured system prompt tuned for this clinic: find out what the patient needs, list doctors, check real availability, confirm details out loud — all in natural Turkish, without exposing a function name or technical term to the caller.</li>
+      <li>n8n executes the actions. Every capability the assistant has — get_doctors, get_available_slots, check_patient, book_appointment, cancel_appointment — is a custom tool backed by its own webhook-triggered n8n workflow, where the business logic lives: re-checking a slot is still open before committing, matching a caller to an existing patient by phone or creating one on the spot, writing the booking, logging the call.</li>
+      <li>Supabase is the source of truth — Postgres tables for patients, doctors, schedules, appointments, call logs, and a reminder queue, with row-level security scoping every read/write by role.</li>
+      <li>The dashboard updates itself via Supabase Realtime — the moment a call ends, the new row appears on the admin&#x27;s screen, no refresh needed.</li>
+      <li>Reminders close the loop: a scheduled workflow has Vapi place outbound calls ahead of upcoming appointments.</li>
+    </ol>
+    <figure>
+      <img src="../images/projects/voice-receptionist/automation-flow.jpg" alt="Inside the automation — what the n8n workflow does on every booking call." loading="lazy">
+      <figcaption>Inside the automation — what the n8n workflow does on every booking call.</figcaption>
+    </figure>
+    <h2>Tech stack</h2>
+    <ul>
+      <li>Voice AI — Vapi (LLM-driven conversational agent, function calling, Turkish-language prompt engineering)</li>
+      <li>Automation — n8n (self-hosted on Docker), webhook-triggered workflows, exposed for development via ngrok</li>
+      <li>Backend — Supabase: Postgres, Auth, Row-Level Security, Realtime</li>
+      <li>Frontend — React 18, TypeScript, Vite, Tailwind CSS, React Router — three role-scoped portals (admin, doctor, patient), bilingual UI (TR/EN)</li>
+      <li>Deployment — static frontend build, versioned SQL migrations for schema + seed data</li>
+    </ul>
+    <figure>
+      <img src="../images/projects/voice-receptionist/vapi-prompt.jpg" alt="The assistant&#x27;s system prompt — the conversation flow it follows on every call." loading="lazy">
+      <figcaption>The assistant&#x27;s system prompt — the conversation flow it follows on every call.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/projects/voice-receptionist/vapi-tools.jpg" alt="The custom tools wired into the Vapi assistant, each backed by its own n8n workflow." loading="lazy">
+      <figcaption>The custom tools wired into the Vapi assistant, each backed by its own n8n workflow.</figcaption>
+    </figure>
+    <h2>What it demonstrates</h2>
+    <ul>
+      <li>Designing a voice-first UX where an LLM makes real decisions (availability, identity, conflicts), not just chats</li>
+      <li>Wiring a no-code automation layer to a relational schema without losing data integrity — race conditions and duplicate patients handled explicitly</li>
+      <li>Row-level security modeled around real-world roles, not a single admin flag</li>
+      <li>A frontend treating the database as one source of truth for two clients at once: a human on the web and an AI on the phone</li>
+      <li>Full ownership of the stack end to end — voice, automation, database, UI</li>
+    </ul>
+    <figure>
+      <img src="../images/projects/voice-receptionist/dashboard-appointments.jpg" alt="The admin dashboard — bookings appear live as calls complete." loading="lazy">
+      <figcaption>The admin dashboard — bookings appear live as calls complete.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/projects/voice-receptionist/dashboard-doctors.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <figure>
+      <img src="../images/projects/voice-receptionist/dashboard-schedule.jpg" alt="Project screenshot" loading="lazy">
+    </figure>
+    <p><a href="../index.html#projects" class="back-link bottom">← Back to all projects</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Dorukhan Turhan · İzmir, Türkiye</p>
+  </footer>
+
+</body>
+</html>
