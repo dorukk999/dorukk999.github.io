@@ -684,7 +684,18 @@ body:has(#v-change:checked) .hero-content { display: none; }
 @supports (animation-timeline: view()) {
     #progress { animation: grow-progress linear both; animation-timeline: scroll(root); }
     .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+
+    /* AI asistan bölümündeyken küçülen sohbet butonu */
+    body { timeline-scope: --assistant; }
+    #assistant { view-timeline-name: --assistant; }
+    .chat-fab { animation: fab-small linear both; animation-timeline: --assistant; }
+    .fab-prompt { animation: fab-prompt-small linear both; animation-timeline: --assistant; }
+    .fab-text { display: inline-block; overflow: hidden; white-space: nowrap; max-width: 160px; animation: fab-text-hide linear both; animation-timeline: --assistant; }
 }
+
+@keyframes fab-small { 25%, 75% { padding: 9px; } }
+@keyframes fab-prompt-small { 25%, 75% { margin-right: 0; } }
+@keyframes fab-text-hide { 25%, 75% { max-width: 0; opacity: 0; } }
 
 /* Hareketi azalt ayarı */
 @media (prefers-reduced-motion: reduce) {
