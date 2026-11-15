@@ -487,6 +487,11 @@ body:has(#v-change:checked) .hero-content { display: none; }
 .project-card:hover { transform: translateY(-8px); box-shadow: 0 26px 50px rgba(11, 17, 48, 0.25); }
 .project-image { overflow: hidden; }
 .project-card img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.6s; }
+
+/* Kapağa tam oturan görseller */
+.project-card img.fit { object-fit: contain; }
+.fit-light { background: #f6f6f6; }
+.fit-dark { background: #081418; }
 .project-card:hover img { transform: scale(1.06); }
 .project-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
 .project-body p { color: var(--ink-soft); font-size: 0.95rem; }
