@@ -236,7 +236,7 @@ body:has(#v-client:checked) .v-client,
 body:has(#v-student:checked) .v-student { display: block; animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
 /* Bölüm sırası */
-main { display: flex; flex-direction: column; background: var(--night); }
+main:not(.project-page) { display: flex; flex-direction: column; background: var(--night); }
 body:has(.persona-radio:not(#v-all):checked) main > .hero    { order: -2; }
 body:has(.persona-radio:not(#v-all):checked) main > .marquee { order: -1; }
 body:has(.persona-radio:not(#v-all):checked) main > .section { order: 10; }
